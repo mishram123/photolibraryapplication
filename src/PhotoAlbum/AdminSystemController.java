@@ -37,6 +37,9 @@ public class AdminSystemController {
   @FXML
   ObservableList<String> userNameData = FXCollections.observableArrayList();
 
+  @FXML
+  ObservableList<User> usernames = FXCollections.observableArrayList();
+
   TableColumn<String, String> usernameListColumn = new TableColumn<>("Username List");
 
   @FXML
@@ -48,8 +51,15 @@ public class AdminSystemController {
     
   }
 
-    @FXML
-    private void createUser(ActionEvent event) throws IOException{
+    // @FXML
+    // private void createUser (ActionEvent event) throwsIOException {
+    //     String enteredUser = usernameField.getText();
+
+    // }
+
+    
+    //@FXML
+    /*private void createUser(ActionEvent event) throws IOException{
         String enteredUser = usernameField.getText();
 
         boolean userExists = usernameListTable.getItems().stream().anyMatch(item -> item.compareTo(enteredUser)==0);
@@ -68,7 +78,8 @@ public class AdminSystemController {
             usernameField.clear();
             usernameListTable.refresh();
         }
-    }
+    }*/
+
     @FXML
     private void quit(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 public class Photo {
     private String fileName;
     private String filePath;
+    private String caption;
     private LocalDateTime dateTaken;
 
     public Photo() {
@@ -25,6 +26,10 @@ public class Photo {
         return filePath;
     }
 
+    public String getCaption() {
+        return caption;
+    }
+
     public LocalDateTime getDateTaken() {
         return dateTaken;
     }
@@ -36,6 +41,10 @@ public class Photo {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public void setDateTaken(LocalDateTime dateTaken) {
