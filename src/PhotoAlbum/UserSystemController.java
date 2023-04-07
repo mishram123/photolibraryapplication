@@ -1,20 +1,23 @@
 package PhotoAlbum;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import java.io.IOException;
+import javafx.collections.*;
+import javafx.application.*;
+import javafx.scene.layout.*;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
+import javafx.application.Platform;
 
 public class UserSystemController {
   
@@ -45,7 +48,20 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
-
+  @FXML
+  private void quit(ActionEvent event) throws IOException{
+      Dialog<ButtonType> dialog = new Dialog<>();
+      dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+      dialog.getDialogPane().setContent(loader.load());
+      dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
+      dialog.showAndWait().ifPresent(response -> {
+          if (response == ButtonType.YES) {
+              // If the user clicked YES, exit the program
+              Platform.exit();
+          }
+      });
+  }
 
 
 }
