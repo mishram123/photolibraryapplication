@@ -38,7 +38,7 @@ public class loginController {
             // Set the new root node to the current scene
             currentScene.setRoot(secondPage);
         }
-        else if (enteredUser.equals(admin)) {
+        else if (enteredUser.compareTo(admin) == 0) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("adminSystem.fxml"));
             Parent secondPage = loader.load();
 
