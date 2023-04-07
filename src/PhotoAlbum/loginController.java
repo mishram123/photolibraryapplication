@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.io.IOException;
+import javafx.application.Platform;
 
 
 public class loginController {
@@ -45,4 +46,19 @@ public class loginController {
             currentScene.setRoot(secondPage);
         }
     }
+    @FXML
+    private void quit(ActionEvent event) throws IOException{
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+        dialog.getDialogPane().setContent(loader.load());
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                // If the user clicked YES, exit the program
+                Platform.exit();
+            }
+        });
+    }
+   
 }
