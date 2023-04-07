@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+
+<DialogPane prefWidth="400" prefHeight="50" contentText="Are you sure you want to quit? You will log out and exit the app" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+</DialogPane>
