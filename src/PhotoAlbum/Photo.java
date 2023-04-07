@@ -16,6 +16,7 @@ public class Photo {
         this.dateTaken = dateTaken;
     }
 
+    //getters
     public String getFileName() {
         return fileName;
     }
@@ -28,6 +29,7 @@ public class Photo {
         return dateTaken;
     }
 
+    //setters
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
