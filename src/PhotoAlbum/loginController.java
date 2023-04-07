@@ -18,6 +18,7 @@ public class loginController {
     private TextField username;
 
     String user = "user";
+    String admin = "admin";
 
     @FXML
     private void login(ActionEvent event) throws IOException{
@@ -25,6 +26,16 @@ public class loginController {
 
         if (enteredUser.equals(user)) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
+            Parent secondPage = loader.load();
+
+            // Get the current scene
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Set the new root node to the current scene
+            currentScene.setRoot(secondPage);
+        }
+        else if (enteredUser.equals(admin)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminSystem.fxml"));
             Parent secondPage = loader.load();
 
             // Get the current scene
