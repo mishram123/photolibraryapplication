@@ -21,10 +21,10 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button layoutX="300.0" layoutY="200.0" mnemonicParsing="false" text="Create User" />
+      <Button layoutX="300.0" layoutY="200.0" mnemonicParsing="false" fx:id="createUserButton" text="Create User" onAction="#createUser"/>
       <Button layoutX="432.0" layoutY="200.0" mnemonicParsing="false" text="Delete User" />
       <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" fx:id="quitButton" text="Quit" onAction="#quit"/>
-      <Button layoutX="471.0" layoutY="361.0" mnemonicParsing="false" text="Logout" />
+      <Button layoutX="471.0" layoutY="361.0" mnemonicParsing="false" fx:id="logoutButton" text="Logout" onAction="#logout"/>
       <TableView layoutX="27.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn prefWidth="199.0" text="Username List" />
