@@ -42,8 +42,8 @@ public class AdminSystemController {
   //@FXML
   //ObservableList<String> userNameData = FXCollections.observableArrayList();
 
-  @FXML
-  ObservableList<User> usernames = FXCollections.observableArrayList();
+    @FXML
+    ObservableList<User> usernames = FXCollections.observableArrayList();
 
 //  TableColumn<String, String> usernameListColumn = new TableColumn<>("Username List");
 
@@ -60,10 +60,7 @@ public class AdminSystemController {
 
     usernameListTable.setItems(usernames);
 
-    User testUser = new User("TestUser");
-    usernames.add(testUser);
-
-    usernameListTable.getColumns().add(usernameListColumn);
+    //usernameListTable.getColumns().add(usernameListColumn);
     
   }
 

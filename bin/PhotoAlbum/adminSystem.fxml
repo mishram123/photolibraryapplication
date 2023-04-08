@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PhotoAlbum.AdminSystemController">
    <children>
-      <TextField layoutX="357.0" layoutY="152.0" />
+      <TextField layoutX="357.0" layoutY="152.0" fx:id="usernameField"/>
       <Label layoutX="269.0" layoutY="152.0" text="Username:">
          <font>
             <Font size="16.0" />
