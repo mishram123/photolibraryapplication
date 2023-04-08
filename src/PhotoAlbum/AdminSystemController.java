@@ -31,33 +31,68 @@ public class AdminSystemController {
   private Button quitButton;
   @FXML
   private Button logoutButton;
-  @FXML
-  private TableView<String> usernameListTable = new TableView<>();
 
-  @FXML
-  ObservableList<String> userNameData = FXCollections.observableArrayList();
+//   @FXML
+//   private TableView<String> usernameListTable = new TableView<>();
+
+
+    @FXML
+    private TableView<User> usernameListTable = new TableView<>();
+
+  //@FXML
+  //ObservableList<String> userNameData = FXCollections.observableArrayList();
 
   @FXML
   ObservableList<User> usernames = FXCollections.observableArrayList();
 
-  TableColumn<String, String> usernameListColumn = new TableColumn<>("Username List");
+//  TableColumn<String, String> usernameListColumn = new TableColumn<>("Username List");
+
+    @FXML
+    TableColumn<User, String> usernameListColumn = new TableColumn<>("Username List");
 
   @FXML
   public void initialize() {
     usernameListColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-    usernameListColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-    usernameListTable.setItems(userNameData);
+
+    //usernameListColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+    // usernameListTable.setItems(userNameData);
+
+    usernameListTable.setItems(usernames);
+
+    User testUser = new User("TestUser");
+    usernames.add(testUser);
+
     usernameListTable.getColumns().add(usernameListColumn);
     
   }
 
-    // @FXML
-    // private void createUser (ActionEvent event) throwsIOException {
-    //     String enteredUser = usernameField.getText();
+    @FXML
+    private boolean createUser (ActionEvent event) throws IOException {
+        String enteredUser = usernameField.getText();
 
-    // }
+        for (User existingUser: usernames) {
+            if (existingUser.getUsername().equals(enteredUser)) {
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("userExists.fxml"));
+                dialog.getDialogPane().setContent(loader.load());
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+                Button closeButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
+                closeButton.setOnAction(e -> dialog.close());
+                dialog.showAndWait();
+                return false;
+            }
+        }
 
-    
+        usernames.add(new User(enteredUser));
+        usernameField.clear();
+        usernameListTable.refresh();
+        return true;
+
+    }
+
+
     //@FXML
     /*private void createUser(ActionEvent event) throws IOException{
         String enteredUser = usernameField.getText();
