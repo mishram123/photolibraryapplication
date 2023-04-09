@@ -14,6 +14,10 @@ import java.io.IOException;
 import javafx.collections.*;
 import javafx.application.*;
 import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.scene.layout.AnchorPane;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
@@ -24,13 +28,13 @@ public class UserSystemController {
   @FXML
   private AnchorPane anchorPane;
   @FXML
-  private TableView table;
+  private TableView<Album> table;
   @FXML
-  private TableColumn albumNameColumn;
+  private TableColumn<Album, String> albumNameColumn;
   @FXML
-  private TableColumn numPhotosColumn;
+  private TableColumn<Album, Integer> numPhotosColumn;
   @FXML
-  private TableColumn dateRangeColumn;
+  private TableColumn<Album, String> dateRangeColumn;
   @FXML 
   private ScrollBar scrollBar;
   @FXML
@@ -48,6 +52,7 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
+
   
   public void setUsername(String username) {
     userLabel.setText("User: " + username);
@@ -57,9 +62,30 @@ public class UserSystemController {
   public void initialize() {
     String username = loginController.getU().getUsername();
     setUsername(username);
+
+    albumNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
+    dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
+
+    ObservableList<Album> albums = FXCollections.observableArrayList();
+    albums.addAll(loginController.getU().getAlbums());
+    table.setItems(albums);
   }
-  
-  
+
+  @FXML
+    public void createAlbum(ActionEvent event) throws IOException{
+        String albumName = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserBox.fxml"));
+        Parent secondPage = loader.load();
+
+        // Get the current scene
+        Scene currentScene = ((Node) event.getSource()).getScene();
+    
+        // Set the new root node to the current scene
+        currentScene.setRoot(secondPage);
+
+        albumName = CreateUserController.getAlbumName();
+    }  
   
   
   @FXML

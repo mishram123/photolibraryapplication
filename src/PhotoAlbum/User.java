@@ -18,7 +18,7 @@ public class User {
         return username;
     }
 
-    public List<Album> geAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 

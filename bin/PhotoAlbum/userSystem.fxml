@@ -56,11 +56,11 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <TableView layoutX="11.0" layoutY="52.0" prefHeight="304.0" prefWidth="316.0">
+            <TableView fx:id="table" layoutX="11.0" layoutY="52.0" prefHeight="304.0" prefWidth="316.0">
               <columns>
-                <TableColumn prefWidth="92.88891345262527" text="Album Name" />
-                <TableColumn prefWidth="121.77777862548828" text="Number of Photos" />
-                  <TableColumn prefWidth="103.11112976074219" text="Date Range" />
+                <TableColumn fx:id="albumNameColumn" prefWidth="92.88891345262527" text="Album Name" />
+                <TableColumn fx:id="numPhotosColumn" prefWidth="121.77777862548828" text="Number of Photos" />
+                  <TableColumn fx:id="dateRangeColumn" prefWidth="103.11112976074219" text="Date Range" />
               </columns>
             </TableView>
             <ScrollBar layoutX="320.0" layoutY="53.0" orientation="VERTICAL" prefHeight="304.0" prefWidth="14.0" />
@@ -76,7 +76,7 @@
             </Label>
             <Button layoutX="422.0" layoutY="141.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Delete Album" />
             <Button layoutX="422.0" layoutY="191.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Rename Album" />
-            <Button layoutX="422.0" layoutY="90.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Create Album" />
+            <Button layoutX="422.0" layoutY="90.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Create Album" onAction="#createAlbum"/>
             <Button layoutX="496.0" layoutY="324.0" mnemonicParsing="false" fx:id="logoutButton" text="Logout" onAction="#logout"/>
             <Button layoutX="564.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" fx:id="quitButton" text="Quit" onAction="#quit"/>
             <Button layoutX="453.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="116.0" text="Search for Photos" />
