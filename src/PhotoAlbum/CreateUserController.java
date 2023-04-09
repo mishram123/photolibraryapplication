@@ -13,6 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.application.Platform;
 import java.io.IOException;
+
+import javax.swing.Action;
+
 import javafx.scene.layout.AnchorPane;
 
 
@@ -49,13 +52,10 @@ public class CreateUserController {
   }
 
   @FXML
-  private void createAlbum() {
+  private void createAlbum(){
     albumName = albumNameTextField.getText();
-  }
-
-  public void initialize(ActionEvent event1) throws IOException{
-    okButton.setOnAction(event -> createAlbum());
-
+    try{
+    ActionEvent event1 = new ActionEvent();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
     Parent secondPage = loader.load();
 
@@ -64,6 +64,15 @@ public class CreateUserController {
 
     // Set the new root node to the current scene
     currentScene.setRoot(secondPage);
+    }catch(IOException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void initialize(){
+    okButton.setOnAction(event -> createAlbum());
+
+    
   }
 
   @FXML
