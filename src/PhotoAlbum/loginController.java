@@ -27,8 +27,28 @@ public class loginController {
     @FXML
     private void login(ActionEvent event) throws IOException{
         String enteredUser = username.getText();
+        User foundUser = AdminSystemController.getUserByUsername(enteredUser);
 
-        if (enteredUser.equals(user)) {
+        // if (enteredUser.equals(user)) {
+        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
+        //     Parent secondPage = loader.load();
+
+        //     // Get the current scene
+        //     Scene currentScene = ((Node) event.getSource()).getScene();
+
+        //     // Set the new root node to the current scene
+        //     currentScene.setRoot(secondPage);
+        // }
+        if (enteredUser.equals(admin)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminSystem.fxml"));
+            Parent secondPage = loader.load();
+
+            // Get the current scene
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Set the new root node to the current scene
+            currentScene.setRoot(secondPage);
+        } else if (foundUser != null){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
             Parent secondPage = loader.load();
 
@@ -38,16 +58,8 @@ public class loginController {
             // Set the new root node to the current scene
             currentScene.setRoot(secondPage);
         }
-        else if (enteredUser.equals(admin)) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminSystem.fxml"));
-            Parent secondPage = loader.load();
-
-            // Get the current scene
-            Scene currentScene = ((Node) event.getSource()).getScene();
-
-            // Set the new root node to the current scene
-            currentScene.setRoot(secondPage);
-        }else{
+          
+        else{
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginDialog.fxml"));

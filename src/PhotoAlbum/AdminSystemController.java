@@ -43,7 +43,10 @@ public class AdminSystemController {
   //ObservableList<String> userNameData = FXCollections.observableArrayList();
 
     @FXML
-    ObservableList<User> usernames = FXCollections.observableArrayList();
+    public static ObservableList<User> usernames = FXCollections.observableArrayList();
+
+    //@FXML
+    //private ObservableList<User> usernames = AdminSystemController.usernames;
 
 //  TableColumn<String, String> usernameListColumn = new TableColumn<>("Username List");
 
@@ -96,6 +99,15 @@ public class AdminSystemController {
         if (selectedUser != null) {
             usernames.remove(selectedUser);
         } 
+    }
+
+    public static User getUserByUsername(String username) {
+        for (User user : usernames) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
 
 
