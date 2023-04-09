@@ -89,6 +89,15 @@ public class AdminSystemController {
 
     }
 
+    @FXML
+    private void deleteUser(ActionEvent event) {
+        User selectedUser = usernameListTable.getSelectionModel().getSelectedItem();
+
+        if (selectedUser != null) {
+            usernames.remove(selectedUser);
+        } 
+    }
+
 
     //@FXML
     /*private void createUser(ActionEvent event) throws IOException{
