@@ -24,6 +24,10 @@ public class loginController {
     String user = "user";
     String admin = "admin";
 
+    public static User u = null;
+
+    User deafultUser = new User(user);
+
     @FXML
     private void login(ActionEvent event) throws IOException{
         String enteredUser = username.getText();
@@ -49,6 +53,17 @@ public class loginController {
             // Set the new root node to the current scene
             currentScene.setRoot(secondPage);
         } else if (foundUser != null){
+            u = foundUser;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
+            Parent secondPage = loader.load();
+
+            // Get the current scene
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Set the new root node to the current scene
+            currentScene.setRoot(secondPage);
+        }else if(enteredUser.equals(deafultUser.getUsername())){
+            u = deafultUser;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
             Parent secondPage = loader.load();
 
@@ -83,6 +98,9 @@ public class loginController {
                 Platform.exit();
             }
         });
+    }
+    public static User getU(){
+        return u;
     }
    
 }

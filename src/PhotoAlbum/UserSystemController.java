@@ -48,6 +48,20 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
+  
+  public void setUsername(String username) {
+    userLabel.setText("User: " + username);
+  }
+  
+  
+  public void initialize() {
+    String username = loginController.getU().getUsername();
+    setUsername(username);
+  }
+  
+  
+  
+  
   @FXML
   private void quit(ActionEvent event) throws IOException{
       Dialog<ButtonType> dialog = new Dialog<>();
