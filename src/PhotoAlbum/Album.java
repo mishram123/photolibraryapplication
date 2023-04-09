@@ -6,10 +6,12 @@ import java.util.List;
 public class Album {
     private String name;
     private List<Photo> photos;
+    private int numPhotos;
 
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<>();
+        this.numPhotos = photos.size();
     }
 
     //getters
@@ -19,6 +21,10 @@ public class Album {
 
     public List<Photo> getPhotos () {
         return photos;
+    }
+
+    public int getNumPhotos(){
+        return photos.size();
     }
 
     //setters
