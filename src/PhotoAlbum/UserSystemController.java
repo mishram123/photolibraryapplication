@@ -20,23 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyStringWrapper;
 
 public class UserSystemController {
   
   @FXML
   private AnchorPane anchorPane;
   @FXML
-  private TableView<Album> table = new TableView<>();
+  private TableView<MyData> table;
   @FXML
-  private TableColumn<Album, String> albumNameColumn = new TableColumn<>("Album Name");
+  private TableColumn<MyData, String> albumNameColumn;
   @FXML
-  private TableColumn<Album, Integer> numPhotosColumn = new TableColumn<>("Number of Photos");
+  private TableColumn<MyData, String> numPhotosColumn;
   @FXML
-  private TableColumn<Album, String> dateRangeColumn = new TableColumn<>("Date Range");
+  private TableColumn<MyData, String> dateRangeColumn;
   @FXML 
   private ScrollBar scrollBar;
   @FXML
@@ -54,7 +57,9 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
-  ObservableList<Album> albums = FXCollections.observableArrayList();
+  ObservableList<String> albumNames = FXCollections.observableArrayList();
+  ObservableList<String> photoNums = FXCollections.observableArrayList();
+  ObservableList<String> dates = FXCollections.observableArrayList();
 
 
   
@@ -63,18 +68,62 @@ public class UserSystemController {
   }
   
   
+  public void doTableView(){
+    List<MyData> data = new ArrayList<>();
+        for (Album album : loginController.getU().getAlbums()) {
+            String albumName = album.getName();
+            int numPhotos = album.getNumPhotos();
+            String dateRange = album.getName(); // You will need to modify this to get the actual date range
+            data.add(new MyData(albumName, numPhotos, dateRange));
+        }
+        table.getItems().setAll(data);
+    /* 
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      String name = loginController.getU().getAlbums().get(i).getName();
+      albumNames.add(name);
+    }
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      int num1 = loginController.getU().getAlbums().get(i).getNumPhotos();
+      String num = String.valueOf(num1);
+      photoNums.add(num);
+    }
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      int num1 = loginController.getU().getAlbums().get(i).getNumPhotos();
+      String num = String.valueOf(num1);
+      dates.add(num);
+    }
+    
+
+    albumNameColumn.setCellValueFactory(cellData -> {
+      int index = table.getItems().indexOf(cellData.getValue());
+      return new ReadOnlyStringWrapper(albumNames.get(index));
+    });
+    numPhotosColumn.setCellValueFactory(cellData -> {
+      int index = table.getItems().indexOf(cellData.getValue());
+      return new ReadOnlyStringWrapper(photoNums.get(index));
+    });
+    dateRangeColumn.setCellValueFactory(cellData -> {
+      int index = table.getItems().indexOf(cellData.getValue());
+      return new ReadOnlyStringWrapper(dates.get(index));
+    });
+
+    for(int i = 0; i<albumNames.size();i++){
+      table.getItems().add(new MyData(albumNames.get(i), photoNums.get(i), dates.get(i)));
+    }
+    */
+
+  }
+  
   public void initialize() {
     String username = loginController.getU().getUsername();
     setUsername(username);
 
-    albumNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
-    dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
+      albumNameColumn.setCellValueFactory(new PropertyValueFactory<>("albumName"));
+        numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
+        dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
+        doTableView(); 
 
-    table.getColumns().addAll(albumNameColumn, numPhotosColumn, dateRangeColumn);
-   
-    albums = FXCollections.observableArrayList(loginController.getU().getAlbums());
-    table.setItems(albums);
+    
   }
 
   @FXML
@@ -91,9 +140,10 @@ public class UserSystemController {
 
         albumName = CreateAlbumBoxController.getAlbumName();
         loginController.getU().addAlbum(new Album(albumName));
-        albums.clear();
-        albums.addAll(loginController.getU().getAlbums());
-        table.refresh();
+
+        albumNames.clear();
+        photoNums.clear();
+        doTableView();
 
     }  
   
@@ -143,6 +193,30 @@ public class UserSystemController {
     });
 
   }
+
+  public static class MyData {
+    private final String albumName;
+    private final int numPhotos;
+    private final String dateRange;
+
+    public MyData(String albumName, int numPhotos, String dateRange) {
+        this.albumName = albumName;
+        this.numPhotos = numPhotos;
+        this.dateRange = dateRange;
+    }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public int getNumPhotos() {
+        return numPhotos;
+    }
+
+    public String getDateRange() {
+        return dateRange;
+    }
+}
 
 
 }

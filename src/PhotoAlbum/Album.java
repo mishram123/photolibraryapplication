@@ -13,6 +13,7 @@ public class Album {
         this.photos = new ArrayList<>();
         this.numPhotos = photos.size();
     }
+    
 
     //getters
     public String getName() {
