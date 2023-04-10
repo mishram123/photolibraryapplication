@@ -80,7 +80,7 @@ public class UserSystemController {
   @FXML
     public void createAlbum(ActionEvent event) throws IOException{
         String albumName = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserBox.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAlbumBox.fxml"));
         Parent secondPage = loader.load();
 
         // Get the current scene
@@ -89,7 +89,7 @@ public class UserSystemController {
         // Set the new root node to the current scene
         currentScene.setRoot(secondPage);
 
-        albumName = CreateUserController.getAlbumName();
+        albumName = CreateAlbumBoxController.getAlbumName();
         loginController.getU().addAlbum(new Album(albumName));
         albums.clear();
         albums.addAll(loginController.getU().getAlbums());

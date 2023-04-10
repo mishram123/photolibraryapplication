@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.application.Platform;
 
 
-public class CreateUserController {
+public class CreateAlbumBoxController {
 
   @FXML
   private AnchorPane root;
@@ -33,8 +33,8 @@ public class CreateUserController {
 
   private static String albumName;
 
-  public CreateUserController() {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createUserBox.fxml"));
+  public CreateAlbumBoxController() {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createAlbumBox.fxml"));
     fxmlLoader.setController(this);
 
     try {
