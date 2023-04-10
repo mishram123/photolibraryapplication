@@ -55,7 +55,6 @@ public class UserSystemController {
   private Button openAlbumButton;
 
   ObservableList<Album> albums = FXCollections.observableArrayList();
-  List<Album> userAlbums = new ArrayList<Album>();
 
 
   
@@ -74,10 +73,7 @@ public class UserSystemController {
 
     table.getColumns().addAll(albumNameColumn, numPhotosColumn, dateRangeColumn);
    
-    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-      userAlbums.add(loginController.getU().getAlbums().get(i));
-    }
-    albums.addAll(loginController.getU().getAlbums());
+    albums = FXCollections.observableArrayList(loginController.getU().getAlbums());
     table.setItems(albums);
   }
 
@@ -94,7 +90,9 @@ public class UserSystemController {
         currentScene.setRoot(secondPage);
 
         albumName = CreateUserController.getAlbumName();
-        albums.add(new Album(albumName));
+        loginController.getU().addAlbum(new Album(albumName));
+        albums.clear();
+        albums.addAll(loginController.getU().getAlbums());
         table.refresh();
 
     }  
