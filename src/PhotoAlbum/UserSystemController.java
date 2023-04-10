@@ -16,7 +16,9 @@ import javafx.application.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.layout.AnchorPane;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
@@ -28,13 +30,13 @@ public class UserSystemController {
   @FXML
   private AnchorPane anchorPane;
   @FXML
-  private TableView<Album> table;
+  private TableView<Album> table = new TableView<>();
   @FXML
-  private TableColumn<Album, String> albumNameColumn;
+  private TableColumn<Album, String> albumNameColumn = new TableColumn<>("Album Name");
   @FXML
-  private TableColumn<Album, Integer> numPhotosColumn;
+  private TableColumn<Album, Integer> numPhotosColumn = new TableColumn<>("Number of Photos");
   @FXML
-  private TableColumn<Album, String> dateRangeColumn;
+  private TableColumn<Album, String> dateRangeColumn = new TableColumn<>("Date Range");
   @FXML 
   private ScrollBar scrollBar;
   @FXML
@@ -52,6 +54,9 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
+  ObservableList<Album> albums = FXCollections.observableArrayList();
+  List<Album> userAlbums = new ArrayList<Album>();
+
 
   
   public void setUsername(String username) {
@@ -67,7 +72,11 @@ public class UserSystemController {
     numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
     dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
 
-    ObservableList<Album> albums = FXCollections.observableArrayList();
+    table.getColumns().addAll(albumNameColumn, numPhotosColumn, dateRangeColumn);
+   
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      userAlbums.add(loginController.getU().getAlbums().get(i));
+    }
     albums.addAll(loginController.getU().getAlbums());
     table.setItems(albums);
   }
@@ -85,6 +94,9 @@ public class UserSystemController {
         currentScene.setRoot(secondPage);
 
         albumName = CreateUserController.getAlbumName();
+        albums.add(new Album(albumName));
+        table.refresh();
+
     }  
   
   

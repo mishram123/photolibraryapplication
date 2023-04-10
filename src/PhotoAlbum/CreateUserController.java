@@ -52,15 +52,15 @@ public class CreateUserController {
   }
 
   @FXML
-  private void createAlbum(){
+  private void createAlbum(ActionEvent event3){
     albumName = albumNameTextField.getText();
     try{
-    ActionEvent event1 = new ActionEvent();
+    //ActionEvent event1 = new ActionEvent();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
     Parent secondPage = loader.load();
 
     // Get the current scene
-    Scene currentScene = ((Node) event1.getSource()).getScene();
+    Scene currentScene = ((Node) event3.getSource()).getScene();
 
     // Set the new root node to the current scene
     currentScene.setRoot(secondPage);
@@ -70,7 +70,7 @@ public class CreateUserController {
   }
 
   public void initialize(){
-    okButton.setOnAction(event -> createAlbum());
+    okButton.setOnAction(event -> createAlbum(event));
 
     
   }
