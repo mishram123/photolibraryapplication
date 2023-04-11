@@ -74,7 +74,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="422.0" layoutY="141.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Delete Album" />
+            <Button layoutX="422.0" layoutY="141.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Delete Album" onAction="#deleteAlbum"/>
             <Button layoutX="422.0" layoutY="191.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" text="Rename Album" />
             <Button layoutX="422.0" layoutY="90.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" fx:id="createAlbumButton" text="Create Album" onAction="#createAlbum"/>
             <Button layoutX="496.0" layoutY="324.0" mnemonicParsing="false" fx:id="logoutButton" text="Logout" onAction="#logout"/>

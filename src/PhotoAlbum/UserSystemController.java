@@ -60,7 +60,7 @@ public class UserSystemController {
   ObservableList<String> albumNames = FXCollections.observableArrayList();
   ObservableList<String> photoNums = FXCollections.observableArrayList();
   ObservableList<String> dates = FXCollections.observableArrayList();
-
+  List<MyData> data = new ArrayList<>();
 
   
   public void setUsername(String username) {
@@ -68,60 +68,37 @@ public class UserSystemController {
   }
   
   
-  public void doTableView(){
-    List<MyData> data = new ArrayList<>();
-        for (Album album : loginController.getU().getAlbums()) {
-            String albumName = album.getName();
-            int numPhotos = album.getNumPhotos();
-            String dateRange = album.getName(); // You will need to modify this to get the actual date range
-            data.add(new MyData(albumName, numPhotos, dateRange));
-        }
-        table.getItems().setAll(data);
-    /* 
-    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-      String name = loginController.getU().getAlbums().get(i).getName();
-      albumNames.add(name);
-    }
-    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-      int num1 = loginController.getU().getAlbums().get(i).getNumPhotos();
-      String num = String.valueOf(num1);
-      photoNums.add(num);
-    }
-    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-      int num1 = loginController.getU().getAlbums().get(i).getNumPhotos();
-      String num = String.valueOf(num1);
-      dates.add(num);
-    }
+  public void doTableView() {
     
 
-    albumNameColumn.setCellValueFactory(cellData -> {
-      int index = table.getItems().indexOf(cellData.getValue());
-      return new ReadOnlyStringWrapper(albumNames.get(index));
-    });
-    numPhotosColumn.setCellValueFactory(cellData -> {
-      int index = table.getItems().indexOf(cellData.getValue());
-      return new ReadOnlyStringWrapper(photoNums.get(index));
-    });
-    dateRangeColumn.setCellValueFactory(cellData -> {
-      int index = table.getItems().indexOf(cellData.getValue());
-      return new ReadOnlyStringWrapper(dates.get(index));
-    });
+    // Add a blank row to the beginning of the list
+   
 
-    for(int i = 0; i<albumNames.size();i++){
-      table.getItems().add(new MyData(albumNames.get(i), photoNums.get(i), dates.get(i)));
+    // Add the actual data rows
+    for (Album album : loginController.getU().getAlbums()) {
+        String albumName = album.getName();
+        int numPhotos = album.getNumPhotos();
+        String dateRange = album.getName(); // You will need to modify this to get the actual date range
+        data.add(new MyData(albumName, numPhotos, dateRange));
+        
     }
-    */
 
-  }
+    // Convert the list to an ObservableList
+    ObservableList<MyData> observableData = FXCollections.observableArrayList(data);
+
+    // Set the items of the TableView to the updated data list
+    table.setItems(observableData);
+}
+
   
   public void initialize() {
     String username = loginController.getU().getUsername();
     setUsername(username);
 
       albumNameColumn.setCellValueFactory(new PropertyValueFactory<>("albumName"));
-        numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
-        dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
-        doTableView(); 
+      numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
+      dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
+      doTableView(); 
 
     
   }
@@ -141,11 +118,41 @@ public class UserSystemController {
         albumName = CreateAlbumBoxController.getAlbumName();
         loginController.getU().addAlbum(new Album(albumName));
 
-        albumNames.clear();
-        photoNums.clear();
-        doTableView();
+        if(data.size()==0){
+          data.add(new MyData(albumName, 0, albumName));
+          data.add(new MyData(null, 0, null));
+        }else{
+          data.add(new MyData(albumName, 0, albumName));
+        }
+        
+        
+        // Convert the list to an ObservableList
+    ObservableList<MyData> observableData = FXCollections.observableArrayList(data);
+
+    // Set the items of the TableView to the updated data list
+    table.setItems(observableData);
+        
 
     }  
+
+  @FXML
+  private void deleteAlbum(ActionEvent event){
+    MyData selectedItem = table.getSelectionModel().getSelectedItem();
+
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      if(loginController.getU().getAlbums().get(i).getName() == selectedItem.getAlbumName()){
+        loginController.getU().getAlbums().remove(i);
+      }
+    }
+
+    table.getItems().clear();
+    data.clear();
+    
+    table.refresh();
+    doTableView();
+    
+
+  }
   
   
   @FXML
