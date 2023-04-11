@@ -191,6 +191,18 @@ public class UserSystemController {
     //     return;
     // }
 
+    MyData selectedItem = table.getSelectionModel().getSelectedItem();
+
+    Album selectedAlbum = null;
+
+    for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+      if(loginController.getU().getAlbums().get(i).getName().compareTo(selectedItem.getAlbumName()) ==0){
+        selectedAlbum = loginController.getU().getAlbums().get(i);
+        break;
+      }
+    }
+    
+
     FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
     Parent secondPage = loader.load();
 
