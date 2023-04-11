@@ -136,7 +136,7 @@ public class UserSystemController {
     }  
 
   @FXML
-  private void deleteAlbum(ActionEvent event){
+  public void deleteAlbum(ActionEvent event){
     MyData selectedItem = table.getSelectionModel().getSelectedItem();
 
     for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
@@ -181,6 +181,24 @@ public class UserSystemController {
     
         table.refresh();
         doTableView();
+  }
+
+  @FXML
+  public void openAlbum(ActionEvent event) throws IOException {
+    // Album selectedAlbum = table.getSelectionModel().getSelectedItem();
+    // if (selectedAlbum == null) {
+    //     // Show an error message or a prompt to select an album
+    //     return;
+    // }
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+    Parent secondPage = loader.load();
+
+    // Get the current scene
+    Scene currentScene = ((Node) event.getSource()).getScene();
+    
+    // Set the new root node to the current scene
+    currentScene.setRoot(secondPage);
   }
   
   @FXML
