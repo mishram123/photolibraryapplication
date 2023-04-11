@@ -53,6 +53,7 @@ public class albumDisplayController {
 
     @FXML
     private void addPhoto(ActionEvent event) {
+        currentAlbum = UserSystemController.getCurAlbum();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a photo");
         File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());

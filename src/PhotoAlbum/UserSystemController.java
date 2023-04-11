@@ -57,6 +57,8 @@ public class UserSystemController {
   @FXML
   private Button openAlbumButton;
 
+  private static Album curAlbum;
+
   ObservableList<String> albumNames = FXCollections.observableArrayList();
   ObservableList<String> photoNums = FXCollections.observableArrayList();
   ObservableList<String> dates = FXCollections.observableArrayList();
@@ -196,12 +198,14 @@ public class UserSystemController {
     Album selectedAlbum = null;
 
     for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-      if(loginController.getU().getAlbums().get(i).getName().compareTo(selectedItem.getAlbumName()) ==0){
-        selectedAlbum = loginController.getU().getAlbums().get(i);
-        break;
+      if(loginController.getU().getAlbums().get(i).getName() != null) {
+        if(loginController.getU().getAlbums().get(i).getName().compareTo(selectedItem.getAlbumName()) ==0){
+          selectedAlbum = loginController.getU().getAlbums().get(i);
+          curAlbum = selectedAlbum;
+          break;
+        }
       }
     }
-    
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
     Parent secondPage = loader.load();
@@ -211,6 +215,10 @@ public class UserSystemController {
     
     // Set the new root node to the current scene
     currentScene.setRoot(secondPage);
+  }
+
+  public static Album getCurAlbum () {
+    return curAlbum;
   }
   
   @FXML
