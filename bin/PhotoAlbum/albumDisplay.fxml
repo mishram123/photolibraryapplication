@@ -55,8 +55,8 @@
             <Button layoutX="22.0" layoutY="27.0" mnemonicParsing="false" text="Back" />
             <TilePane layoutX="123.0" layoutY="27.0" prefHeight="304.0" prefWidth="375.0" fx:id="photoTilePane"/>
             <Button layoutX="512.0" layoutY="143.0" mnemonicParsing="false" fx:id="addPhotoButton" onAction="#addPhoto" prefHeight="36.0" prefWidth="101.0" text="Add Photo" />
-            <Button layoutX="580.0" layoutY="330.0" mnemonicParsing="false" text="Quit" />
-            <Button layoutX="512.0" layoutY="330.0" mnemonicParsing="false" text="Logout" />
+            <Button layoutX="580.0" layoutY="330.0" mnemonicParsing="false" text="Quit" onAction="#quit"/>
+            <Button layoutX="512.0" layoutY="330.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
       </children>
     </AnchorPane>
   </children>
