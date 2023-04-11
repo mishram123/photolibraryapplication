@@ -154,6 +154,34 @@ public class UserSystemController {
 
   }
   
+  @FXML
+  private void renameAlbum(ActionEvent event) throws IOException{
+    MyData selectedItem = table.getSelectionModel().getSelectedItem();
+    
+    String albumName = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("renameAlbumBox.fxml"));
+        Parent secondPage = loader.load();
+
+        // Get the current scene
+        Scene currentScene = ((Node) event.getSource()).getScene();
+    
+        // Set the new root node to the current scene
+        currentScene.setRoot(secondPage);
+
+        albumName = CreateAlbumBoxController.getAlbumName();
+
+        for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+          if(loginController.getU().getAlbums().get(i).getName().compareTo(selectedItem.getAlbumName()) ==0){
+            loginController.getU().getAlbums().get(i).setName(albumName);
+            break;
+          }
+        }
+        table.getItems().clear();
+        data.clear();
+    
+        table.refresh();
+        doTableView();
+  }
   
   @FXML
   private void quit(ActionEvent event) throws IOException{
