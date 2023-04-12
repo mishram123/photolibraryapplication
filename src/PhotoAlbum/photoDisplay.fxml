@@ -79,8 +79,8 @@
             </Label>
             <Button layoutX="472.0" layoutY="132.0" mnemonicParsing="false" text="Next Image" />
             <Button layoutX="97.0" layoutY="132.0" mnemonicParsing="false" text="Previous Image" />
-            <Button layoutX="559.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Quit" />
-            <Button layoutX="484.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Logout" />
+            <Button layoutX="559.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Quit" onAction="#quit"/>
+            <Button layoutX="484.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Logout" onAction="#logout"/>
             <Label layoutX="486.0" layoutY="27.0" prefHeight="38.0" prefWidth="145.0" text="Album Name">
                <font>
                   <Font size="18.0" />
