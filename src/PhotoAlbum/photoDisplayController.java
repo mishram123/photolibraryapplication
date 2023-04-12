@@ -52,6 +52,8 @@ import java.io.IOException;
 public class photoDisplayController {
 @FXML
 private ImageView enlargedPhoto;
+@FXML
+private Label albumLabel;
 
 private Photo currentPhoto;
 private Album currentAlbum;
@@ -79,6 +81,15 @@ private void displayEnlargedPhoto() {
     Image image = new Image(currentPhoto.getFilePath());
     enlargedPhoto.setImage(image);
 }
+public void setAlbumName(String albumName) {
+    albumLabel.setText(albumName);
+  }
+
+public void initialize(){
+    String albumName = UserSystemController.getCurAlbum().getName();
+    setAlbumName(albumName);
+
+}
 
 @FXML
     private void goBack(ActionEvent event) throws IOException {
@@ -92,7 +103,16 @@ private void displayEnlargedPhoto() {
     }
 
 
+@FXML
+private void editPhoto(ActionEvent Event) throws IOException{
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
+    Parent editPhotoPage = loader.load();
 
+    Scene currentscene = ((Node) Event.getSource()).getScene();
+    currentscene.setRoot(editPhotoPage);
+
+
+}
 @FXML
 private void quit(ActionEvent event) throws IOException{
     Dialog<ButtonType> dialog = new Dialog<>();
