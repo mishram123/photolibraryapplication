@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +74,13 @@ public class albumDisplayController {
             ImageView imageView = new ImageView(photo.getFilePath());
             imageView.setFitWidth(100);
             imageView.setFitHeight(100);
+            imageView.setOnMouseClicked(event -> {
+                try {
+                    handlePhotoClick(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             photoTilePane.getChildren().add(imageView);
         }
     }
@@ -92,6 +100,26 @@ public class albumDisplayController {
             currentAlbum.addPhoto(newPhoto);
             displayPhotoPreviews();
         }
+    }
+
+    
+
+    @FXML
+    public void handlePhotoClick(MouseEvent event) throws IOException {
+        ImageView clickedPhoto = (ImageView) event.getSource();
+        // Get the clicked Photo object from the currentAlbum (you might need to implement a method to find a photo by its file path)
+        Photo selectedPhoto = currentAlbum.findPhotoByFilePath(clickedPhoto.getImage().getUrl());
+    
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+        Parent photoPage = loader.load();
+        photoDisplayController controller = loader.getController();
+        controller.setPhoto(selectedPhoto);
+        controller.setAlbum(currentAlbum);
+    
+        Scene scene = new Scene(photoPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

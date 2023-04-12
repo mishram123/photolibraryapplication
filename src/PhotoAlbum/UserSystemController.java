@@ -188,10 +188,7 @@ public class UserSystemController {
   @FXML
   public void openAlbum(ActionEvent event) throws IOException {
     // Album selectedAlbum = table.getSelectionModel().getSelectedItem();
-    // if (selectedAlbum == null) {
-    //     // Show an error message or a prompt to select an album
-    //     return;
-    // }
+    
 
     MyData selectedItem = table.getSelectionModel().getSelectedItem();
 
@@ -206,6 +203,10 @@ public class UserSystemController {
         }
       }
     }
+
+    if (selectedAlbum == null) {
+      return;
+  }
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
     Parent secondPage = loader.load();

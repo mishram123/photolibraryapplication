@@ -46,4 +46,13 @@ public class Album {
     public void deletePhoto(Photo photo) {
         photos.remove(photo);
     }
+
+    public Photo findPhotoByFilePath(String filePath) {
+        for (Photo photo : photos) {
+            if (photo.getFilePath().equals(filePath)) {
+                return photo;
+            }
+        }
+        return null;
+    }
 }
