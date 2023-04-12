@@ -80,6 +80,18 @@ private void displayEnlargedPhoto() {
     enlargedPhoto.setImage(image);
 }
 
+@FXML
+    private void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+        Parent userSystemPage = loader.load();
+        albumDisplayController controller = loader.getController();
+        //controller.setCurrentUser(currentUser);
+
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(userSystemPage);
+    }
+
+
 
 @FXML
 private void quit(ActionEvent event) throws IOException{
