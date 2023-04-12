@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
+import java.util.Optional;
 
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
@@ -104,38 +105,28 @@ public class UserSystemController {
 
     
   }
-
   @FXML
-    public void createAlbum(ActionEvent event) throws IOException{
-        String albumName = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createAlbumBox.fxml"));
-        Parent secondPage = loader.load();
+  public void createAlbum(ActionEvent Event) throws IOException{
+    String albumname = null;
+    TextInputDialog dialog = new TextInputDialog(albumname);
+        dialog.setTitle("Create Album");
+        dialog.setHeaderText("Enter a name for the album:");
+        dialog.setContentText("Album Name:");
 
-        // Get the current scene
-        Scene currentScene = ((Node) event.getSource()).getScene();
-    
-        // Set the new root node to the current scene
-        currentScene.setRoot(secondPage);
+        // Show the dialog and wait for user input
+        Optional<String> result = dialog.showAndWait();
 
-        albumName = CreateAlbumBoxController.getAlbumName();
-        loginController.getU().addAlbum(new Album(albumName));
+        result.ifPresent(newName -> {
+          loginController.getU().addAlbum(new Album(newName));
 
-        if(data.size()==0){
-          data.add(new MyData(albumName, 0, albumName));
-          data.add(new MyData(null, 0, null));
-        }else{
-          data.add(new MyData(albumName, 0, albumName));
-        }
-        
-        
-        // Convert the list to an ObservableList
-    ObservableList<MyData> observableData = FXCollections.observableArrayList(data);
+          data.add(new MyData(newName, 0, newName));
+          ObservableList<MyData> observableData = FXCollections.observableArrayList(data);
 
     // Set the items of the TableView to the updated data list
     table.setItems(observableData);
-        
 
-    }  
+        });
+  }
 
   @FXML
   public void deleteAlbum(ActionEvent event){
@@ -157,33 +148,34 @@ public class UserSystemController {
   }
   
   @FXML
-  private void renameAlbum(ActionEvent event) throws IOException{
+  private void renameAlbum(ActionEvent event) throws IOException {
     MyData selectedItem = table.getSelectionModel().getSelectedItem();
-    
-    String albumName = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("renameAlbumBox.fxml"));
-        Parent secondPage = loader.load();
+    if (selectedItem != null) {
+        // Create a TextInputDialog to get the new album name from the user
+        TextInputDialog dialog = new TextInputDialog(selectedItem.getAlbumName());
+        dialog.setTitle("Rename Album");
+        dialog.setHeaderText("Enter a new name for the album:");
+        dialog.setContentText("Album Name:");
 
-        // Get the current scene
-        Scene currentScene = ((Node) event.getSource()).getScene();
-    
-        // Set the new root node to the current scene
-        currentScene.setRoot(secondPage);
+        // Show the dialog and wait for user input
+        Optional<String> result = dialog.showAndWait();
 
-        albumName = CreateAlbumBoxController.getAlbumName();
-
-        for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
-          if(loginController.getU().getAlbums().get(i).getName().compareTo(selectedItem.getAlbumName()) ==0){
-            loginController.getU().getAlbums().get(i).setName(albumName);
-            break;
+        // If the user clicks OK, update the album name in the model and the table view
+        result.ifPresent(newName -> {
+          for(int i = 0; i<loginController.getU().getAlbums().size(); i++){
+            if(loginController.getU().getAlbums().get(i).getName() == selectedItem.getAlbumName()){
+              loginController.getU().getAlbums().get(i).setName(newName);
+              break;
+            }
           }
-        }
-        table.getItems().clear();
-        data.clear();
-    
-        table.refresh();
-        doTableView();
-  }
+          table.getItems().clear();
+          data.clear();
+      
+          table.refresh();
+          doTableView();
+        });
+    }
+}
 
   @FXML
   public void openAlbum(ActionEvent event) throws IOException {
