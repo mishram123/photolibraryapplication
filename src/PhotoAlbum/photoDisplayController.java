@@ -107,12 +107,21 @@ public void initialize(){
 private void editPhoto(ActionEvent Event) throws IOException{
     FXMLLoader loader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
     Parent editPhotoPage = loader.load();
+    editPhotoSystemController controller = loader.getController();
 
     Scene currentscene = ((Node) Event.getSource()).getScene();
     currentscene.setRoot(editPhotoPage);
 
 
 }
+@FXML
+private void deletePhoto(ActionEvent Event) throws IOException{
+    currentAlbum.deletePhoto(currentPhoto);
+    
+    goBack(Event);
+
+}
+
 @FXML
 private void quit(ActionEvent event) throws IOException{
     Dialog<ButtonType> dialog = new Dialog<>();
