@@ -99,7 +99,7 @@ public class Album {
 
         LocalDateTime maxDate = LocalDateTime.MIN;
         LocalDateTime minDate = LocalDateTime.MAX;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for(int i = 0; i<photos.size(); i++){
             LocalDateTime tempmax = photos.get(i).getDateTaken();
             LocalDateTime tempmin = photos.get(i).getDateTaken();

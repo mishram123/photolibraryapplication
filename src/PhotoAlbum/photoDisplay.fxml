@@ -63,17 +63,17 @@
             </ImageView>
             <Button layoutX="33.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Delete Photo" onAction="#deletePhoto" />
             <Button layoutX="33.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Edit Photo" onAction="#editPhoto"/>
-            <Label layoutX="293.0" layoutY="251.0" prefHeight="62.0" prefWidth="136.0" text="Caption">
+            <Label fx:id="captionLabel" layoutX="293.0" layoutY="251.0" prefHeight="62.0" prefWidth="136.0" text="Caption: &lt;">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="272.0" layoutY="282.0" prefHeight="62.0" prefWidth="136.0" text="Date Captured">
+            <Label fx:id="dateLabel" layoutX="272.0" layoutY="282.0" prefHeight="62.0" prefWidth="136.0" text="Date Taken: &lt;">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="304.0" layoutY="312.0" prefHeight="62.0" prefWidth="113.0" text="Tags:">
+            <Label fx:id="tagLabel" layoutX="270.0" layoutY="312.0" prefHeight="62.0" prefWidth="113.0" text="Tags: &lt;">
                <font>
                   <Font size="18.0" />
                </font>

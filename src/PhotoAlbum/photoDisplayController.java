@@ -73,6 +73,12 @@ public class photoDisplayController {
      */
     @FXML
     private Label albumLabel;
+    @FXML
+    private Label captionLabel;
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private Label tagLabel;
     /**
      * The currently selected Photo object
      */
@@ -129,6 +135,16 @@ private void displayEnlargedPhoto() {
 public void setAlbumName(String albumName) {
     albumLabel.setText(albumName);
   }
+public void setCaptionLabel(String caption){
+    captionLabel.setText(caption);
+}
+public void setDateLabel(String date){
+    dateLabel.setText(date);
+}
+
+public void setTagLabel(String tag){
+    tagLabel.setText(tag);
+}
 
   /**
    * Initializes the controller class. Sets the albumLabel text to the name of the current album
@@ -136,6 +152,30 @@ public void setAlbumName(String albumName) {
 public void initialize(){
     String albumName = UserSystemController.getCurAlbum().getName();
     setAlbumName(albumName);
+
+    if(curPhoto == null){
+        setCaptionLabel("No Caption Yet");
+        
+    }else{
+        String caption = curPhoto.getCaption();
+        setCaptionLabel(caption);
+    }
+    if(curPhoto == null){
+        setDateLabel("No Date Recorded");
+       
+    }else{
+        String date = curPhoto.getDateTakenString();
+        setDateLabel(date);
+    }
+  
+    if(curPhoto == null){
+        setTagLabel("No Tags Yet");
+       
+    }else{
+        String tags = curPhoto.getTags().get(0).getKey() + " " + curPhoto.getTags().get(0).getValue();
+        setTagLabel(tags);
+    }
+
 
 }
 

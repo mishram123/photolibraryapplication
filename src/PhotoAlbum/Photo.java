@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Soban Chaudhry
@@ -80,6 +81,12 @@ public class Photo {
     public void removeTag(Tag tag){
         tags.remove(tag);
         tag = null;
+    }
+    
+    public String getDateTakenString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateTaken.format(formatter);
+        return date;
     }
 
     /**
