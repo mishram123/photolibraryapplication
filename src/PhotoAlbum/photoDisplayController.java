@@ -82,6 +82,8 @@ public class photoDisplayController {
      */
     private Album currentAlbum;
 
+    private static Photo curPhoto;
+
 // public void initialize() {
 //     if (imagePath != null && !imagePath.isEmpty()) {
 //         Image image = new Image(imagePath);
@@ -97,6 +99,7 @@ public class photoDisplayController {
  */
 public void setPhoto(Photo photo) {
     this.currentPhoto = photo;
+    curPhoto = photo;
     displayEnlargedPhoto();
 }
 
@@ -106,6 +109,10 @@ public void setPhoto(Photo photo) {
  */
 public void setAlbum(Album album) {
     this.currentAlbum = album;
+}
+
+public static Photo getPhoto() {
+    return curPhoto;
 }
 
 /**

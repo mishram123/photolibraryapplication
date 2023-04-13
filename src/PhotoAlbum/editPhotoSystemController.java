@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import PhotoAlbum.Photo;
 import javafx.scene.image.Image;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,33 +72,108 @@ public class editPhotoSystemController {
     private Button logoutButton;
     @FXML
     private Label albumNameLabel;
-    //@FXML
-    //private TableView<Tag> tagTableView;
-    //@FXML
-    //private TableColumn<Tag, String> tagNameColumn;
-    //@FXML
-    //private TableColumn<Tag, String> tagValueColumn;
-    //@FXML
-    //private Label tagsLabel;
+    @FXML
+    private TableView<String> tagTableView;
+    @FXML
+    private TableColumn<String, String> tagNameColumn;
+    @FXML
+    private TableColumn<String, String> tagValueColumn;
+    @FXML
+    private Label tagsLabel;
     
-    //@FXML
-    //private TextField tagNameTextField;
-    //@FXML
-    //private TextField tagValueTextField;
-    //@FXML
-    //private Button deleteTagButton;
+    @FXML
+    private TextField tagNameTextField;
+    @FXML
+    private TextField tagValueTextField;
+    @FXML
+    private Button deleteTagButton;
+    @FXML
+    private ImageView enlargedPhoto;
 
-    public editPhotoSystemController() {
-        // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
-        // fxmlLoader.setRoot(this);
-        // fxmlLoader.setController(this);
+    private static Photo photo;
 
-        // try {
-        //     fxmlLoader.load();
-        // } catch (IOException e) {
-        //     throw new RuntimeException(e);
-        // }
+    @FXML
+    public void initialize() {
+        displayEnlargedPhoto();
+        setCaption();
+        // Initialize your controller here
+        // Add event listeners or bindings
+
+        // editCaptionButton.setOnAction(event -> editCaption());
+        // addTagButton.setOnAction(event -> addTag());
+        // movePhotoButton.setOnAction(event -> movePhoto());
+        // copyPhotoButton.setOnAction(event -> copyPhoto());
+        // quitButton.setOnAction(event -> quit());
+        // logoutButton.setOnAction(event -> logout());
+        // deleteTagButton.setOnAction(event -> deleteTag());
     }
+
+    private void displayEnlargedPhoto() {
+        photo = photoDisplayController.getPhoto();
+        Image image = new Image(photo.getFilePath());
+        enlargedPhoto.setImage(image);
+        photo = photoDisplayController.getPhoto();
+    }
+
+    public void setCaption() {
+        captionLabel.setText(photo.getCaption());
+    }
+
+    @FXML
+    private void editCaption() {
+        // Implement your logic for editing the caption of the photo
+        String newCaption = null;
+        TextInputDialog dialog = new TextInputDialog(newCaption);
+        dialog.setTitle("Caption");
+        dialog.setHeaderText("Enter new Caption:");
+        dialog.setContentText("New Caption:");
+
+        // Show the dialog and wait for user input
+        Optional<String> result = dialog.showAndWait();
+        
+        if (result.isPresent()) {
+            newCaption = result.get();
+            photo.setCaption(newCaption);
+            setCaption();
+        }
+    }
+
+    private void addTag() {
+        // Implement your logic for adding a tag to the photo
+    }
+
+    private void movePhoto() {
+        // Implement your logic for moving the photo
+    }
+
+    private void copyPhoto() {
+        // Implement your logic for copying the photo
+    }
+
+    private void quit() {
+        // Implement your logic for quitting the application
+    }
+
+    private void logout() {
+        // Implement your logic for logging out of the application
+    }
+
+    private void deleteTag() {
+        // Implement your logic for deleting a tag from the photo
+    }
+
+    // public editPhotoSystemController() {
+
+    //     // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
+    //     // fxmlLoader.setRoot(this);
+    //     // fxmlLoader.setController(this);
+
+    //     // try {
+    //     //     fxmlLoader.load();
+    //     // } catch (IOException e) {
+    //     //     throw new RuntimeException(e);
+    //     // }
+    // }
 
     // @FXML
     // public void initialize() {
