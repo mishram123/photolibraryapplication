@@ -46,6 +46,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.Action;
 
+import java.util.stream.Collectors;
+
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.scene.input.MouseEvent;
 
@@ -187,10 +189,62 @@ public class editPhotoSystemController {
         photo.addTag(key, value);
 
         doTableView();
+
+        tagNameTextField.clear();
+        tagValueTextField.clear();
     }
 
+    @FXML
     private void movePhoto() {
-        // Implement your logic for moving the photo
+    // 1. Show a dialog to let the user select the destination album
+    List<Album> albums = loginController.getU().getAlbums();
+    List<String> albumNames = albums.stream().map(Album::getName).collect(Collectors.toList());
+    ChoiceDialog<String> dialog = new ChoiceDialog<>(null, albumNames);
+    dialog.setTitle("Move Photo");
+    dialog.setHeaderText("Select the destination album:");
+    dialog.setContentText("Choose an album:");
+
+    Optional<String> result = dialog.showAndWait();
+    
+    if (result.isPresent()) {
+        String destinationAlbumName = result.get();
+        Album destinationAlbum = albums.stream().filter(album -> album.getName().equals(destinationAlbumName)).findFirst().orElse(null);
+        
+        if (destinationAlbum == null) {
+            // If the destination album is not found, show an error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Move Photo Error");
+            alert.setContentText("The destination album cannot be found. Please try again.");
+            alert.showAndWait();
+            return;
+        }
+        
+        if (UserSystemController.getCurAlbum() == destinationAlbum) {
+            // If the user selected the same album, show an error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Move Photo Error");
+            alert.setContentText("The destination album is the same as the current album. Please choose a different album.");
+            alert.showAndWait();
+            return;
+        }
+        
+        // 2. Remove the photo from the current album
+        UserSystemController.getCurAlbum().deletePhoto(photo);
+
+        // 3. Add the photo to the destination album
+        destinationAlbum.addPhoto(photo);
+
+        // 4. Update the user interface
+        // You may need to call a method to refresh the UI or go back to the previous screen
+        // For example, if you have a method to go back to the photo display screen:
+        try {
+            goBack(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     private void copyPhoto() {
@@ -202,7 +256,7 @@ public class editPhotoSystemController {
  * @throws IOException If an error occurs during loading the FXML file.
  */
 @FXML
-private void goBack(ActionEvent event) throws IOException {
+public void goBack(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
     Parent userSystemPage = loader.load();
     photoDisplayController controller = loader.getController();
@@ -272,8 +326,16 @@ private void logout(ActionEvent event){
         // Implement your logic for deleting a tag from the photo
         Tag selectedTag = tagTableView.getSelectionModel().getSelectedItem();
 
-        photo.removeTag(selectedTag);
-        data.remove(selectedTag);
+        for (int i = 0; i < photo.getTags().size(); i++) {
+            if (photo.tagEquals(selectedTag, photo.getTags().get(i))) {
+                photo.removeTag(photo.getTags().get(i));
+                data.remove(selectedTag);
+                break;
+            }
+        }
+
+        // photo.removeTag(selectedTag);
+        // data.remove(selectedTag);
 
         data.clear();
         tagTableView.getItems().clear();

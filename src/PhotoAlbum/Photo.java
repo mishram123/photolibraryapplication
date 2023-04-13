@@ -82,6 +82,15 @@ public class Photo {
         tags.remove(tag);
         tag = null;
     }
+
+    public boolean tagEquals(Tag tag1, Tag tag2){
+        if (tag1.getKey().equals(tag2.getKey()) && tag1.getValue().equals(tag2.getValue())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     
     public String getDateTakenString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
