@@ -49,6 +49,8 @@ import javafx.scene.input.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+
+
 public class editPhotoSystemController {
   @FXML
     private MenuBar menuBar;
@@ -73,11 +75,11 @@ public class editPhotoSystemController {
     @FXML
     private Label albumNameLabel;
     @FXML
-    private TableView<String> tagTableView;
+    private TableView<Tag> tagTableView;
     @FXML
-    private TableColumn<String, String> tagNameColumn;
+    private TableColumn<Tag, String> tagNameColumn;
     @FXML
-    private TableColumn<String, String> tagValueColumn;
+    private TableColumn<Tag, String> tagValueColumn;
     @FXML
     private Label tagsLabel;
     
@@ -90,12 +92,17 @@ public class editPhotoSystemController {
     @FXML
     private ImageView enlargedPhoto;
 
+    List<Tag> data = new ArrayList<>();
+
     private static Photo photo;
 
     @FXML
     public void initialize() {
         displayEnlargedPhoto();
         setCaption();
+
+        tagNameColumn.setCellValueFactory(new PropertyValueFactory<>("key"));
+        tagValueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         // Initialize your controller here
         // Add event listeners or bindings
 
@@ -106,6 +113,27 @@ public class editPhotoSystemController {
         // quitButton.setOnAction(event -> quit());
         // logoutButton.setOnAction(event -> logout());
         // deleteTagButton.setOnAction(event -> deleteTag());
+    }
+
+    public void doTableView() {
+
+        // tagTableView.getItems().clear();
+        
+        data.clear();
+    
+        // Add the actual data rows
+        for (Tag tag: photo.getTags()) {
+            String keyField = tag.getKey();
+            String valueField = tag.getValue(); // You will need to modify this to get the actual date range
+            data.add(new Tag(keyField, valueField));
+            
+        }
+    
+        // Convert the list to an ObservableList
+        ObservableList<Tag> observableData = FXCollections.observableArrayList(data);
+    
+        // Set the items of the TableView to the updated data list
+        tagTableView.setItems(observableData);
     }
 
     private void displayEnlargedPhoto() {
@@ -138,8 +166,14 @@ public class editPhotoSystemController {
         }
     }
 
-    private void addTag() {
+    public void addTag() {
+        tagTableView.getItems().clear();
         // Implement your logic for adding a tag to the photo
+        String key = tagNameTextField.getText();
+        String value = tagValueTextField.getText();
+        photo.addTag(key, value);
+
+        doTableView();
     }
 
     private void movePhoto() {

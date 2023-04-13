@@ -1,6 +1,9 @@
 package PhotoAlbum;
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Soban Chaudhry
  * @author Mannan Mishra
@@ -14,6 +17,7 @@ public class Photo {
     private String filePath;
     private String caption;
     private LocalDateTime dateTaken;
+    private List<Tag> tags;
 
     /**
      * Default constructor
@@ -31,6 +35,7 @@ public class Photo {
         this.fileName = fileName;
         this.filePath = filePath;
         this.dateTaken = dateTaken;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -61,6 +66,15 @@ public class Photo {
      */
     public LocalDateTime getDateTaken() {
         return dateTaken;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(String key, String value) {
+        Tag tag = new Tag(key, value);
+        tags.add(tag);
     }
 
     /**
