@@ -1,4 +1,8 @@
 package PhotoAlbum;
+/**
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +33,11 @@ import javax.swing.text.DefaultStyledDocument.ElementSpec;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
+/**
+ * This class represents the controller for the User system GUI
+ * Contains methods for initializing the GUI components
+ * creating, deleting, renaming albums, opening selected album and displaying albums in a TableView
+ */
 public class UserSystemController {
   
   @FXML
@@ -65,18 +74,19 @@ public class UserSystemController {
   ObservableList<String> dates = FXCollections.observableArrayList();
   List<MyData> data = new ArrayList<>();
 
-  
+  /**
+   * Sets the username label to the given username
+   * @param username the username of the current user
+   */
   public void setUsername(String username) {
     userLabel.setText("User: " + username);
   }
   
-  
+  /**
+   * Populates the table view with the user's albums and data
+   */
   public void doTableView() {
     
-
-    // Add a blank row to the beginning of the list
-   
-
     // Add the actual data rows
     for (Album album : loginController.getU().getAlbums()) {
         String albumName = album.getName();
@@ -93,7 +103,9 @@ public class UserSystemController {
     table.setItems(observableData);
 }
 
-  
+  /**
+   * Initializes the GUI components and sets the username Label and TableView columns
+   */
   public void initialize() {
     String username = loginController.getU().getUsername();
     setUsername(username);
@@ -105,6 +117,12 @@ public class UserSystemController {
 
     
   }
+  /**
+   * This method creates a new album when the "Create Album" button is clicked. 
+   * It prompts the user to enter a name for the album and adds it to the users list. It also updates the table view with the new album
+   * @param Event the event generated when the "Create Album" button is clicked
+   * @throws IOException if there is an error with the input/output
+   */
   @FXML
   public void createAlbum(ActionEvent Event) throws IOException{
     String albumname = null;
@@ -128,6 +146,11 @@ public class UserSystemController {
         });
   }
 
+  /**
+   * This method deletes the selected album when the "Delete Album" button is clicked
+   * it removes the album from the user's album list and updates the table view
+   * @param event the even generated when the "Delete Album" button is clicked
+   */
   @FXML
   public void deleteAlbum(ActionEvent event){
     MyData selectedItem = table.getSelectionModel().getSelectedItem();
@@ -147,6 +170,12 @@ public class UserSystemController {
 
   }
   
+  /**
+   * This method renames the selected album when the "Rename Album" button is clicked
+   * It prompts the user to enter a new name for the album and updates the album name in the model and table view
+   * @param event the event generated when the "Rename Album" button is clicked
+   * @throws IOException if there is an error with Input/Output
+   */
   @FXML
   private void renameAlbum(ActionEvent event) throws IOException {
     MyData selectedItem = table.getSelectionModel().getSelectedItem();
@@ -177,6 +206,13 @@ public class UserSystemController {
     }
 }
 
+  /**
+   * This method opens the selected album when the "Open Album" button is clicked
+   * It gets the selected album from the table view and sets it as the current album
+   * it then loads the album display page and sets it as the root node of the current scene
+   * @param event the event generated when the "Open Album" button is clicked
+   * @throws IOException if there is an error with the Input/Output
+   */
   @FXML
   public void openAlbum(ActionEvent event) throws IOException {
     // Album selectedAlbum = table.getSelectionModel().getSelectedItem();
@@ -213,7 +249,12 @@ public class UserSystemController {
   public static Album getCurAlbum () {
     return curAlbum;
   }
-  
+  /**
+     * This method is called when the user clicks the quit button.
+     * It displays a confirmation dialog and exits the application if the user selects yes
+     * @param event the ActionEvent object representing the click of the quit button
+     * @throws IOException if an error occurs in the QuitDialog.fxml file
+     */
   @FXML
   private void quit(ActionEvent event) throws IOException{
       Dialog<ButtonType> dialog = new Dialog<>();
@@ -228,7 +269,10 @@ public class UserSystemController {
           }
       });
   }
-
+  /**
+    * Handles the logout action event by showing a dialog to confirm logout and redirecting to the login page
+    * @param event the action event triggering the method
+    */
   @FXML
   private void logout(ActionEvent event){
     Dialog<ButtonType> dialog = new Dialog<>();
@@ -260,25 +304,55 @@ public class UserSystemController {
 
   }
 
+  /**
+   * Represents a data object for use in the table view of albums
+   */
   public static class MyData {
+    /**
+     * the name of the album
+     */
     private final String albumName;
+    /**
+     * The number of photos in the album
+     */
     private final int numPhotos;
+    /**
+     * the date range of the photos in the album
+     */
     private final String dateRange;
 
+    /**
+     * Constructs a new MyData object with the specified album name, number of photos, and date range
+     * @param albumName the name of the album
+     * @param numPhotos the number of photos in the album
+     * @param dateRange the date range of the photos in the album
+     */
     public MyData(String albumName, int numPhotos, String dateRange) {
         this.albumName = albumName;
         this.numPhotos = numPhotos;
         this.dateRange = dateRange;
     }
 
+    /**
+     * Returns the name of the album
+     * @return the name of the album
+     */
     public String getAlbumName() {
         return albumName;
     }
 
+    /**
+     * Returns the number of photos in the album
+     * @return number of photos in the album
+     */
     public int getNumPhotos() {
         return numPhotos;
     }
 
+    /**
+     * Returns the date range of the photos in the album
+     * @return date range of the photos in the album
+     */
     public String getDateRange() {
         return dateRange;
     }

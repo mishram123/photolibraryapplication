@@ -1,5 +1,10 @@
 package PhotoAlbum;
 
+/**
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
+ */
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,14 +58,29 @@ import javafx.scene.input.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The photo Display Controller class is a controller class that handles the display of photos in the photos app
+ * It manages displaying a selected photo, the ability to go back to the album displaym and the ability to edit and delete photos
+ */
 public class photoDisplayController {
-@FXML
-private ImageView enlargedPhoto;
-@FXML
-private Label albumLabel;
-
-private Photo currentPhoto;
-private Album currentAlbum;
+    /**
+     *The ImageView that displays the selected photo 
+     */
+    @FXML
+    private ImageView enlargedPhoto;
+    /**
+     * The Label that displays the name of the album the photo belongs to
+     */
+    @FXML
+    private Label albumLabel;
+    /**
+     * The currently selected Photo object
+     */
+    private Photo currentPhoto;
+    /**
+     * The album object that the currently selected photo belongs to
+     */
+    private Album currentAlbum;
 
 // public void initialize() {
 //     if (imagePath != null && !imagePath.isEmpty()) {
@@ -71,30 +91,52 @@ private Album currentAlbum;
 //     }
 // }
 
-
+/**
+ * Sets the currentPhoto varialbe to the given photo
+ * @param photo the Photo object to set as the currentPhoto
+ */
 public void setPhoto(Photo photo) {
     this.currentPhoto = photo;
     displayEnlargedPhoto();
 }
 
+/**
+ * Sets the currentAlbum to the given album
+ * @param album the Album object to set as the currentAlbum
+ */
 public void setAlbum(Album album) {
     this.currentAlbum = album;
 }
 
+/**
+ * Displays the enlarged version of the currentPhoto in the enlargedPhoto ImageView
+ */
 private void displayEnlargedPhoto() {
     Image image = new Image(currentPhoto.getFilePath());
     enlargedPhoto.setImage(image);
 }
+/**
+ * Sets the text of the albumLabel to the given albumName
+ * @param albumName the name of the album to set as the text of the albumLabel
+ */
 public void setAlbumName(String albumName) {
     albumLabel.setText(albumName);
   }
 
+  /**
+   * Initializes the controller class. Sets the albumLabel text to the name of the current album
+   */
 public void initialize(){
     String albumName = UserSystemController.getCurAlbum().getName();
     setAlbumName(albumName);
 
 }
 
+/**
+ * Switches the scene to the album display page.
+ * @param event The event that triggered the method call.
+ * @throws IOException If an error occurs during loading the FXML file.
+ */
 @FXML
     private void goBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
@@ -106,7 +148,11 @@ public void initialize(){
         currentScene.setRoot(userSystemPage);
     }
 
-
+/**
+ * Opens editphoto page and sets it as the current scene
+ * @param Event the event that triggered this method
+ * @throws IOException if the FXML file cannot be loaded
+ */
 @FXML
 private void editPhoto(ActionEvent Event) throws IOException{
     FXMLLoader loader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
@@ -117,6 +163,12 @@ private void editPhoto(ActionEvent Event) throws IOException{
     currentscene.setRoot(editPhotoPage);
 }
 
+/**
+ * Displays a confirmation dialog for deleting a photo
+ * If confirmed, deletes the current photo from current album and goes back to previous page
+ * @param event the event that triggered this method
+ * @throws IOException if the FXML file cannot be loaded
+ */
 @FXML
 private void deletePhoto(ActionEvent Event) throws IOException{
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -135,6 +187,11 @@ private void deletePhoto(ActionEvent Event) throws IOException{
 
 }
 
+/**
+ * Displays the next photo in the current album, if it exists
+ * @param event The event that triggered this method
+ * @throws IOException if the FXML file cannot be loaded
+ */
 @FXML
 private void nextPhoto(ActionEvent event) throws IOException{
     Photo nextPhoto = null;
@@ -170,6 +227,11 @@ private void nextPhoto(ActionEvent event) throws IOException{
         stage.show();
 }
 
+/**
+ * Displays the previous photo in the current album, if it exists
+ * @param event the event that triggered this method
+ * @throws IOException if the FXML file cannot be loaded
+ */
 @FXML
 private void prevPhoto(ActionEvent event) throws IOException{
     Photo prevPhoto = null;
@@ -204,6 +266,12 @@ private void prevPhoto(ActionEvent event) throws IOException{
         stage.show();
 }
 
+    /**
+     * This method is called when the user clicks the quit button.
+     * It displays a confirmation dialog and exits the application if the user selects yes
+     * @param event the ActionEvent object representing the click of the quit button
+     * @throws IOException if an error occurs in the QuitDialog.fxml file
+     */
 
 @FXML
 private void quit(ActionEvent event) throws IOException{
@@ -219,7 +287,10 @@ private void quit(ActionEvent event) throws IOException{
         }
     });
 }
-
+/**
+  * Handles the logout action event by showing a dialog to confirm logout and redirecting to the login page
+  * @param event the action event triggering the method
+  */
 @FXML
 private void logout(ActionEvent event){
   Dialog<ButtonType> dialog = new Dialog<>();

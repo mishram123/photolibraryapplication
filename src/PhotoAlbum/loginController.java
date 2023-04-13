@@ -1,6 +1,7 @@
 package PhotoAlbum;
 /**
- * Authors Soban Chaudhry and Mannan Mishra
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
  */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +50,12 @@ public class loginController {
      */
     User deafultUser = new User(user);
 
+    /**
+     * This method is called when the user clicks the login button.
+     * It checks if the entered username is valid and displays the appropriate screen or error message.
+     * @param event The ActionEvent object representing the click of the login button
+     * @throws IOException if an error occurs while loading other fxml files
+     */
     @FXML
     private void login(ActionEvent event) throws IOException{
         AdminSystemController.addDefaultUser(deafultUser);
@@ -107,6 +114,13 @@ public class loginController {
             dialog.showAndWait();
         }
     }
+
+    /**
+     * This method is called when the user clicks the quit button.
+     * It displays a confirmation dialog and exits the application if the user selects yes
+     * @param event the ActionEvent object representing the click of the quit button
+     * @throws IOException if an error occurs in the QuitDialog.fxml file
+     */
     @FXML
     private void quit(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -121,6 +135,11 @@ public class loginController {
             }
         });
     }
+    /**
+     * Returns the user object that is currently logged in
+     * if no user is logged in, returns null
+     * @return the User object that is currently logged in, or null if no user is logged in
+     */
     public static User getU(){
         return u;
     }

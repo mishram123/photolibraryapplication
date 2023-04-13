@@ -1,5 +1,9 @@
 package PhotoAlbum;
 
+/**
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +21,11 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 
-
+/**
+ * The AdminSystemController class manages the administrator interface, allowing admins to create, delete, and view users
+ * The class initializes the interface with the table of users, provides methods for adding and deleting users
+ * handles the logic of the quit and logout buttons
+ */
 public class AdminSystemController {
   @FXML
   private TextField usernameField = new TextField();
@@ -53,6 +61,10 @@ public class AdminSystemController {
     @FXML
     TableColumn<User, String> usernameListColumn = new TableColumn<>("Username List");
 
+    /**
+     * Initializes the AdminSystemController by setting the cell value factory to the usernameListColumn
+     * also adds the list of usernames to the table
+     */
   @FXML
   public void initialize() {
     usernameListColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -67,10 +79,21 @@ public class AdminSystemController {
     
   }
 
+  /**
+   * adds the default user to the list of users
+   * @param user the default user to be added
+   */
   public static void addDefaultUser(User user){
     usernames.add(user);
   }
 
+  /**
+   * Create a new user and adds them to the list of users if the entered username does not already exist in the list
+   * If the username already exists, a dialog box is displayed informing the user of the error
+   * @param event the ActionEvent object representing the button clcik that triggers this method
+   * @return true if a new user is successfully added, false otherwise
+   * @throws IOException if the userExists.fxml does not load
+   */
     @FXML
     private boolean createUser (ActionEvent event) throws IOException {
         String enteredUser = usernameField.getText();
@@ -96,6 +119,10 @@ public class AdminSystemController {
 
     }
 
+    /**
+     * Deletes the selected user from the list of usernames
+     * @param event the event that triggered this method
+     */
     @FXML
     private void deleteUser(ActionEvent event) {
         User selectedUser = usernameListTable.getSelectionModel().getSelectedItem();
@@ -105,6 +132,11 @@ public class AdminSystemController {
         } 
     }
 
+    /**
+     * Returns the user object with the given username, or null if no such user exists
+     * @param username the username to search for
+     * @return the User object with the given username, or null if no such user exists
+     */
     public static User getUserByUsername(String username) {
         for (User user : usernames) {
             if (user.getUsername().equals(username)) {
@@ -137,6 +169,12 @@ public class AdminSystemController {
         }
     }*/
 
+    /**
+     * This method is called when the user clicks the quit button.
+     * It displays a confirmation dialog and exits the application if the user selects yes
+     * @param event the ActionEvent object representing the click of the quit button
+     * @throws IOException if an error occurs in the QuitDialog.fxml file
+     */
     @FXML
     private void quit(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -151,6 +189,10 @@ public class AdminSystemController {
             }
         });
     }
+    /**
+     * Handles the logout action event by showing a dialog to confirm logout and redirecting to the login page
+     * @param event the action event triggering the method
+     */
     @FXML
     private void logout(ActionEvent event){
       Dialog<ButtonType> dialog = new Dialog<>();
