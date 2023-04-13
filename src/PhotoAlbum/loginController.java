@@ -1,5 +1,7 @@
 package PhotoAlbum;
-
+/**
+ * Authors Soban Chaudhry and Mannan Mishra
+ */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,20 +18,40 @@ import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
 import javafx.application.Platform;
 
-
+/**
+ * This class is the controller for the login screen of the photos application
+ * It handles user login and displays appropriate error messages if login fails
+ */
 public class loginController {
+    /**
+     * The Textfield object for user input of username
+     */
     @FXML
     private TextField username;
 
+    /**
+     * String object representing the default user
+     */
     String user = "user";
+
+    /**
+     * String object representing the admin account
+     */
     String admin = "admin";
 
+    /**
+     * User object representinf the current user of the application
+     */
     public static User u = null;
 
+    /**
+     * User object representing the default user
+     */
     User deafultUser = new User(user);
 
     @FXML
     private void login(ActionEvent event) throws IOException{
+        AdminSystemController.addDefaultUser(deafultUser);
         String enteredUser = username.getText();
         User foundUser = AdminSystemController.getUserByUsername(enteredUser);
 

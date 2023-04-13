@@ -67,6 +67,10 @@ public class AdminSystemController {
     
   }
 
+  public static void addDefaultUser(User user){
+    usernames.add(user);
+  }
+
     @FXML
     private boolean createUser (ActionEvent event) throws IOException {
         String enteredUser = usernameField.getText();
