@@ -91,7 +91,7 @@ public class UserSystemController {
     for (Album album : loginController.getU().getAlbums()) {
         String albumName = album.getName();
         int numPhotos = album.getNumPhotos();
-        String dateRange = album.getName(); // You will need to modify this to get the actual date range
+        String dateRange = album.getDateRange();
         data.add(new MyData(albumName, numPhotos, dateRange));
         
     }
@@ -137,7 +137,7 @@ public class UserSystemController {
         result.ifPresent(newName -> {
           loginController.getU().addAlbum(new Album(newName));
 
-          data.add(new MyData(newName, 0, newName));
+          data.add(new MyData(newName, 0, " "));
           ObservableList<MyData> observableData = FXCollections.observableArrayList(data);
 
     // Set the items of the TableView to the updated data list

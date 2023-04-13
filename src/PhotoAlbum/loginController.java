@@ -13,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
@@ -35,6 +38,8 @@ public class loginController {
      */
     String user = "user";
 
+    String stock = "stock";
+
     /**
      * String object representing the admin account
      */
@@ -48,7 +53,7 @@ public class loginController {
     /**
      * User object representing the default user
      */
-    User deafultUser = new User(user);
+    User stockUser = new User(stock);
 
     /**
      * This method is called when the user clicks the login button.
@@ -58,7 +63,7 @@ public class loginController {
      */
     @FXML
     private void login(ActionEvent event) throws IOException{
-        AdminSystemController.addDefaultUser(deafultUser);
+        AdminSystemController.addDefaultUser(stockUser);
         String enteredUser = username.getText();
         User foundUser = AdminSystemController.getUserByUsername(enteredUser);
 
@@ -91,8 +96,56 @@ public class loginController {
 
             // Set the new root node to the current scene
             currentScene.setRoot(secondPage);
-        }else if(enteredUser.equals(deafultUser.getUsername())){
-            u = deafultUser;
+        }else if(enteredUser.equals(stockUser.getUsername())){
+            u = stockUser;
+            Album currentAlbum = new Album("stockAlbum");
+            u.addAlbum(currentAlbum);
+            File file1 = new File("photos04/data/big_Data.jpg");
+            String photoName = file1.getName();
+            String photoPath = file1.toURI().toString();
+            LocalDateTime photoDateTime = LocalDateTime.now();
+            Photo photo1 = new Photo(photoName, photoPath, photoDateTime);
+            photo1.setCaption("Big Data Cloud");
+            photo1.addTag("cloud", "data");
+            currentAlbum.addPhoto(photo1);
+
+            File file2 = new File("photos04/data/little_robot.jpg");
+            String photoName2 = file2.getName();
+            String photoPath2 = file2.toURI().toString();
+            LocalDateTime photoDateTime2 = LocalDateTime.now();
+            Photo photo2 = new Photo(photoName2, photoPath2, photoDateTime2);
+            photo2.setCaption("tiny robot");
+            photo2.addTag("robot", "machine");
+            currentAlbum.addPhoto(photo2);
+
+            File file3 = new File("photos04/data/man_looking_computer.jpg");
+            String photoName3 = file3.getName();
+            String photoPath3 = file3.toURI().toString();
+            LocalDateTime photoDateTime3 = LocalDateTime.now();
+            Photo photo3 = new Photo(photoName3, photoPath3, photoDateTime3);
+            photo3.setCaption("Computer Sceintist");
+            photo2.addTag("programmer", "computer");
+            currentAlbum.addPhoto(photo3);
+
+            File file4 = new File("photos04/data/no_picture_picture.jpg");
+            String photoName4 = file4.getName();
+            String photoPath4 = file4.toURI().toString();
+            LocalDateTime photoDateTime4 = LocalDateTime.now();
+            Photo photo4 = new Photo(photoName4, photoPath4, photoDateTime4);
+            photo2.setCaption("Where is the picture");
+            photo2.addTag("folder", "picture");
+            currentAlbum.addPhoto(photo4);
+
+            File file5 = new File("photos04/data/where_data.jpg");
+            String photoName5 = file5.getName();
+            String photoPath5 = file5.toURI().toString();
+            LocalDateTime photoDateTime5 = LocalDateTime.now();
+            Photo photo5 = new Photo(photoName5, photoPath5, photoDateTime5);
+            photo2.setCaption("where is data");
+            photo2.addTag("mystery", "device");
+            currentAlbum.addPhoto(photo5);
+            
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
             Parent secondPage = loader.load();
 

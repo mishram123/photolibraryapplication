@@ -4,8 +4,11 @@ package PhotoAlbum;
  * @author Mannan Mishra
  */
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * Represents an album in the photo management system containing a name and list of photos
@@ -90,6 +93,32 @@ public class Album {
      */
     public void deletePhoto(Photo photo) {
         photos.remove(photo);
+    }
+
+    public String getDateRange(){
+
+        LocalDateTime maxDate = LocalDateTime.MIN;
+        LocalDateTime minDate = LocalDateTime.MAX;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for(int i = 0; i<photos.size(); i++){
+            LocalDateTime tempmax = photos.get(i).getDateTaken();
+            LocalDateTime tempmin = photos.get(i).getDateTaken();
+            
+            if(tempmax.compareTo(maxDate) >= 0){
+                maxDate = tempmax;
+            }
+            if(tempmin.compareTo(minDate) <= 0){
+                minDate = tempmin;
+            }
+        }
+
+        if(maxDate != LocalDateTime.MIN && minDate != LocalDateTime.MAX){
+            String max = maxDate.format(formatter);
+            String min = minDate.format(formatter);
+            return min + " - " + max;
+        }else{
+            return " ";
+        }
     }
 
     /**

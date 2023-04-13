@@ -43,6 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.swing.Action;
+
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.scene.input.MouseEvent;
 
@@ -96,8 +99,18 @@ public class editPhotoSystemController {
 
     private static Photo photo;
 
+    /**
+      * Sets the text of the albumLabel to the given albumName
+      * @param albumName the name of the album to set as the text of the albumLabel
+      */
+    public void setAlbumName(String albumName) {
+        albumNameLabel.setText(albumName);
+    
+    }
     @FXML
     public void initialize() {
+        String albumName = UserSystemController.getCurAlbum().getName();
+        setAlbumName(albumName);
         displayEnlargedPhoto();
         setCaption();
 
@@ -183,17 +196,90 @@ public class editPhotoSystemController {
     private void copyPhoto() {
         // Implement your logic for copying the photo
     }
+    /**
+ * Switches the scene to the album display page.
+ * @param event The event that triggered the method call.
+ * @throws IOException If an error occurs during loading the FXML file.
+ */
+@FXML
+private void goBack(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+    Parent userSystemPage = loader.load();
+    photoDisplayController controller = loader.getController();
+    //controller.setCurrentUser(currentUser);
 
-    private void quit() {
-        // Implement your logic for quitting the application
-    }
+    Scene currentScene = ((Node) event.getSource()).getScene();
+    currentScene.setRoot(userSystemPage);
+}
+  /**
+     * This method is called when the user clicks the quit button.
+     * It displays a confirmation dialog and exits the application if the user selects yes
+     * @param event the ActionEvent object representing the click of the quit button
+     * @throws IOException if an error occurs in the QuitDialog.fxml file
+     */
 
-    private void logout() {
-        // Implement your logic for logging out of the application
-    }
+     @FXML
+     private void quit(ActionEvent event) throws IOException{
+         Dialog<ButtonType> dialog = new Dialog<>();
+         dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+         dialog.getDialogPane().setContent(loader.load());
+         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
+         dialog.showAndWait().ifPresent(response -> {
+             if (response == ButtonType.YES) {
+                 // If the user clicked YES, exit the program
+                 Platform.exit();
+             }
+         });
+     }
 
-    private void deleteTag() {
+    /**
+  * Handles the logout action event by showing a dialog to confirm logout and redirecting to the login page
+  * @param event the action event triggering the method
+  */
+@FXML
+private void logout(ActionEvent event){
+  Dialog<ButtonType> dialog = new Dialog<>();
+  dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
+  FXMLLoader loader = new FXMLLoader(getClass().getResource("LogoutDialog.fxml"));
+  try {
+      dialog.getDialogPane().setContent(loader.load());
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+  dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
+  dialog.showAndWait().ifPresent(response -> {
+      if(response == ButtonType.YES){
+          FXMLLoader nextloader = new FXMLLoader(getClass().getResource("Login.fxml"));
+          Parent secondPage = null;
+          try {
+             secondPage = nextloader.load();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+
+          // Get the current scene
+          Scene currentScene = ((Node) event.getSource()).getScene();
+
+          // Set the new root node to the current scene
+          currentScene.setRoot(secondPage);
+      }
+  });
+
+}
+    @FXML
+    private void deleteTag(ActionEvent event) {
         // Implement your logic for deleting a tag from the photo
+        Tag selectedTag = tagTableView.getSelectionModel().getSelectedItem();
+
+        photo.removeTag(selectedTag);
+        data.remove(selectedTag);
+
+        data.clear();
+        tagTableView.getItems().clear();
+
+        doTableView();
+
     }
 
     // public editPhotoSystemController() {

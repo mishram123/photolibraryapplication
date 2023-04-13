@@ -77,6 +77,11 @@ public class Photo {
         tags.add(tag);
     }
 
+    public void removeTag(Tag tag){
+        tags.remove(tag);
+        tag = null;
+    }
+
     /**
      * Sets the file name of this photo
      * @param fileName the file name to set
