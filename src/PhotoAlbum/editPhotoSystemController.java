@@ -88,21 +88,21 @@ public class editPhotoSystemController {
     //private Button deleteTagButton;
 
     public editPhotoSystemController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
+        // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
+        // fxmlLoader.setRoot(this);
+        // fxmlLoader.setController(this);
 
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        //     fxmlLoader.load();
+        // } catch (IOException e) {
+        //     throw new RuntimeException(e);
+        // }
     }
 
-    @FXML
-    public void initialize() {
-        // Initialize your UI components here
-    }
+    // @FXML
+    // public void initialize() {
+    //     // Initialize your UI components here
+    // }
 
     // Define your event handlers here
 
