@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.Optional;
 
 import javax.swing.Action;
 
@@ -114,14 +115,23 @@ private void editPhoto(ActionEvent Event) throws IOException{
 
     Scene currentscene = ((Node) Event.getSource()).getScene();
     currentscene.setRoot(editPhotoPage);
-
-
 }
+
 @FXML
 private void deletePhoto(ActionEvent Event) throws IOException{
-    currentAlbum.deletePhoto(currentPhoto);
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirm Deletion");
+    alert.setHeaderText(null);
+    alert.setContentText("Are you sure you want to delete?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK){
+        currentAlbum.deletePhoto(currentPhoto);
     
-    goBack(Event);
+        goBack(Event);
+    }
+
+
 
 }
 
