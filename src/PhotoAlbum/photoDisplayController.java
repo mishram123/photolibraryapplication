@@ -43,6 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.swing.Action;
+
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.scene.input.MouseEvent;
 
@@ -121,6 +124,76 @@ private void deletePhoto(ActionEvent Event) throws IOException{
     goBack(Event);
 
 }
+
+@FXML
+private void nextPhoto(ActionEvent event) throws IOException{
+    Photo nextPhoto = null;
+    int index = 0;
+    boolean bool = false;
+    for(int i = 0; i<currentAlbum.getPhotos().size(); i++){
+        if(i+1<currentAlbum.getPhotos().size() && currentAlbum.getPhotos().get(i) == currentPhoto){
+            index = i+1;
+            bool = true;
+            break;
+        }
+    }
+    if(bool){
+        nextPhoto = currentAlbum.getPhotos().get(index);
+    }else{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No more photos");
+            alert.setHeaderText(null);
+            alert.setContentText("There are no more next photos.");
+
+            alert.showAndWait();
+    }
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+        Parent photoPage = loader.load();
+        photoDisplayController controller = loader.getController();
+        controller.setPhoto(nextPhoto);
+        controller.setAlbum(currentAlbum);
+    
+        Scene scene = new Scene(photoPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+}
+
+@FXML
+private void prevPhoto(ActionEvent event) throws IOException{
+    Photo prevPhoto = null;
+    int index = 0;
+    boolean bool = false;
+    for(int i = 0; i<currentAlbum.getPhotos().size(); i++){
+        if(i-1>=0 && currentAlbum.getPhotos().get(i) == currentPhoto){
+            index = i-1;
+            bool = true;
+            break;
+        }
+    }
+    if(bool){
+        prevPhoto = currentAlbum.getPhotos().get(index);
+    }else{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No more photos");
+            alert.setHeaderText(null);
+            alert.setContentText("There are no more previous photos.");
+
+            alert.showAndWait();
+    }
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+        Parent photoPage = loader.load();
+        photoDisplayController controller = loader.getController();
+        controller.setPhoto(prevPhoto);
+        controller.setAlbum(currentAlbum);
+    
+        Scene scene = new Scene(photoPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+}
+
 
 @FXML
 private void quit(ActionEvent event) throws IOException{
