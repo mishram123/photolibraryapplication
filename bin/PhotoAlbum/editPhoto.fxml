@@ -72,7 +72,7 @@
             <Button layoutX="16.0" layoutY="116.0" mnemonicParsing="false" text="Edit Caption" onAction="#editCaption"/>
             <Button layoutX="395.0" layoutY="282.0" mnemonicParsing="false" text="Add Tag" onAction="#addTag"/>
             <Button layoutX="47.0" layoutY="228.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="108.0" text="Move Photo" onAction="#movePhoto"/>
-            <Button layoutX="47.0" layoutY="295.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="108.0" text="Copy Photo" />
+            <Button layoutX="47.0" layoutY="295.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="108.0" text="Copy Photo" onAction="#copyPhoto"/>
             <Button layoutX="586.0" layoutY="333.0" mnemonicParsing="false" text="Quit" onAction="#quit"/>
             <Button layoutX="527.0" layoutY="333.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
             <Label fx:id="albumNameLabel" layoutX="56.0" layoutY="14.0" prefHeight="42.0" prefWidth="116.0" text="Album: &lt;&gt;">

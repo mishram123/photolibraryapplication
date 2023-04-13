@@ -247,8 +247,52 @@ public class editPhotoSystemController {
     }
     }
 
+    @FXML
     private void copyPhoto() {
         // Implement your logic for copying the photo
+        List<Album> albums = loginController.getU().getAlbums();
+        List<String> albumNames = albums.stream().map(Album::getName).collect(Collectors.toList());
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(null, albumNames);
+        dialog.setTitle("Move Photo");
+        dialog.setHeaderText("Select the destination album:");
+        dialog.setContentText("Choose an album:");
+    
+        Optional<String> result = dialog.showAndWait();
+        
+        if (result.isPresent()) {
+            String destinationAlbumName = result.get();
+            Album destinationAlbum = albums.stream().filter(album -> album.getName().equals(destinationAlbumName)).findFirst().orElse(null);
+            
+            if (destinationAlbum == null) {
+                // If the destination album is not found, show an error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Move Photo Error");
+                alert.setContentText("The destination album cannot be found. Please try again.");
+                alert.showAndWait();
+                return;
+            }
+            
+            if (UserSystemController.getCurAlbum() == destinationAlbum) {
+                // If the user selected the same album, show an error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Move Photo Error");
+                alert.setContentText("The destination album is the same as the current album. Please choose a different album.");
+                alert.showAndWait();
+                return;
+            }
+            
+    
+            // 3. Add the photo to the destination album
+            destinationAlbum.addPhoto(photo);
+    
+            // 4. Update the user interface
+            // You may need to call a method to refresh the UI or go back to the previous screen
+            // For example, if you have a method to go back to the photo display screen:
+
+        }
+        
     }
     /**
  * Switches the scene to the album display page.
