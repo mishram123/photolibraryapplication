@@ -61,7 +61,7 @@
                </font>
             </Label>
             <Button layoutX="32.0" layoutY="28.0" mnemonicParsing="false" text="Back" />
-            <Button layoutX="246.0" layoutY="312.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="170.0" text="Create Album From Results" />
+            <Button layoutX="246.0" layoutY="312.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="170.0" text="Create Album From Results" onAction="#createAlbumFromSearchResults"/>
             <Button layoutX="569.0" layoutY="319.0" mnemonicParsing="false" text="Quit" onAction="#quit" />
             <Button layoutX="509.0" layoutY="319.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
       </children>

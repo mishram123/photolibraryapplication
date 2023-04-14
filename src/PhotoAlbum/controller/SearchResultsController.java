@@ -15,7 +15,7 @@ import PhotoAlbum.model.Photo;
 import PhotoAlbum.model.Tag;
 import java.util.ArrayList;
 
-
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,8 +94,11 @@ public class SearchResultsController {
     @FXML
     private Button quitButton;
 
+    static List<Photo> searchRes;
+
     public void displaySearchResults(List<Photo> searchResults) {
         searchResultsTilePane.getChildren().clear();
+        searchRes = searchResults;
 
         for (Photo photo : searchResults) {
             ImageView imageView = new ImageView(photo.getFilePath());
@@ -106,6 +109,51 @@ public class SearchResultsController {
             });
             searchResultsTilePane.getChildren().add(imageView);
         }
+    }
+
+    @FXML
+    public void createAlbumFromSearchResults(ActionEvent event) {
+        List<Album> albums = loginController.getU().getAlbums();
+        if (searchRes == null || searchRes.isEmpty()) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No Search Results");
+            alert.setContentText("There are no search results to create an album from.");
+            alert.showAndWait();
+            return;
+        }
+    
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Create Album");
+        dialog.setHeaderText("Create a new album from search results");
+        dialog.setContentText("Enter album name:");
+    
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(albumName -> {
+            if (albumName.trim().isEmpty()) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Album Name");
+                alert.setContentText("Album name cannot be empty.");
+                alert.showAndWait();
+                return;
+            }
+    
+            for (Album existingAlbum : albums) {
+                if (existingAlbum.getName().equals(albumName)) {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Duplicate Album Name");
+                    alert.setContentText("An album with this name already exists. Please choose a different name.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+    
+            Album newAlbum = new Album(albumName);
+            newAlbum.setPhotos(searchRes);
+            albums.add(newAlbum);
+        });
     }
 
     @FXML
