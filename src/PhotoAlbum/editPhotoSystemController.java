@@ -115,9 +115,12 @@ public class editPhotoSystemController {
         setAlbumName(albumName);
         displayEnlargedPhoto();
         setCaption();
+        
 
         tagNameColumn.setCellValueFactory(new PropertyValueFactory<>("key"));
         tagValueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        doTableView();
         // Initialize your controller here
         // Add event listeners or bindings
 
@@ -301,13 +304,13 @@ public class editPhotoSystemController {
  */
 @FXML
 public void goBack(ActionEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
-    Parent userSystemPage = loader.load();
-    photoDisplayController controller = loader.getController();
-    //controller.setCurrentUser(currentUser);
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+        Parent userSystemPage = loader.load();
+        albumDisplayController controller = loader.getController();
+        //controller.setCurrentUser(currentUser);
 
-    Scene currentScene = ((Node) event.getSource()).getScene();
-    currentScene.setRoot(userSystemPage);
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(userSystemPage);
 }
   /**
      * This method is called when the user clicks the quit button.
