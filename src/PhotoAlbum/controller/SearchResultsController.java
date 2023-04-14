@@ -75,6 +75,10 @@ import PhotoAlbum.model.Album;
 import PhotoAlbum.model.Photo;
 import PhotoAlbum.model.Tag;
 
+/**
+ * The search results controller class handles the display of search results in the UI
+ * It contains methods for displaying search results, creating a new album from search results, logging out, and quitting
+ */
 public class SearchResultsController {
     @FXML
     private TilePane searchResultsTilePane;
@@ -96,6 +100,10 @@ public class SearchResultsController {
 
     static List<Photo> searchRes;
 
+    /**
+     * Displays the search results in the UI
+     * @param searchResults the list of photos to display as search results
+     */
     public void displaySearchResults(List<Photo> searchResults) {
         searchResultsTilePane.getChildren().clear();
         searchRes = searchResults;
@@ -111,6 +119,11 @@ public class SearchResultsController {
         }
     }
 
+    /**
+     * Handles the creation of a new album from search results
+     * Displays error message if there are no search results to create album from or if album is invalid
+     * @param event the action event that triggers this method
+     */
     @FXML
     public void createAlbumFromSearchResults(ActionEvent event) {
         List<Album> albums = loginController.getU().getAlbums();
@@ -155,7 +168,10 @@ public class SearchResultsController {
             albums.add(newAlbum);
         });
     }
-
+    /**
+     * Handles the logout action event
+     * @param event the event triggered by the user
+     */
     @FXML
     private void logout(ActionEvent event){
       Dialog<ButtonType> dialog = new Dialog<>();
@@ -186,7 +202,10 @@ public class SearchResultsController {
       });
   
     }
-
+/**
+     * Handles the quit action event
+     * @param event the action event triggered by the user
+     */
     @FXML
     private void quit(ActionEvent event) throws IOException{
       Dialog<ButtonType> dialog = new Dialog<>();
@@ -201,4 +220,20 @@ public class SearchResultsController {
           }
       });
   }
+  /**
+     * This method is called when the user clicks on the "back" button in the album display page and takes the user back to the user system page
+     * It loads the user System FXML and sets the scene to show it
+     * @param event the action event that triggers the method
+     * @throws IOException if the user System FXML file is not found or if there is an error loading it
+     */
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/userSystem.fxml"));
+        Parent userSystemPage = loader.load();
+        UserSystemController controller = loader.getController();
+        //controller.setCurrentUser(currentUser);
+
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(userSystemPage);
+    }
 }

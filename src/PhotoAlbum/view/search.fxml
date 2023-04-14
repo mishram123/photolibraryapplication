@@ -88,7 +88,7 @@
             <Button layoutX="466.0" layoutY="236.0" mnemonicParsing="false" text="Search" onAction="#handleSearchByDate"/>
             <Button layoutX="554.0" layoutY="318.0" mnemonicParsing="false" text="Quit" onAction="#quit"/>
             <Button layoutX="483.0" layoutY="318.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
-            <Button layoutX="29.0" layoutY="21.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="29.0" layoutY="21.0" mnemonicParsing="false" text="Back" onAction="#goBack"/>
       </children>
     </AnchorPane>
   </children>

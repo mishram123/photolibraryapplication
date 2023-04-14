@@ -138,14 +138,8 @@ public class UserSystemController {
   public void setStock(){
     if(loginController.getU().getUsername().compareTo("stock")==0){
       Album currentAlbum = new Album("stockAlbum");
-      File file1 = new File("/photos04/data/balloons.png");
-      if(file1.exists()){
-        System.out.println("This works");
-      }else{
-        System.out.println("This does not work");
-      }
-      
-            String photoName = file1.getName();
+      File file1 = new File("/photos04/data/balloons.png");  
+          String photoName = file1.getName();
             String photoPath = file1.toURI().toString();
             LocalDateTime photoDateTime = LocalDateTime.now();
             Photo photo1 = new Photo(photoName, photoPath, photoDateTime);

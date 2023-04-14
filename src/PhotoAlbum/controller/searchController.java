@@ -294,15 +294,6 @@ public class searchController {
     }
 
     /**
-     * Handles the back action event
-     * @param event the action event that triggers this method
-     */
-    @FXML
-    public void handleBack(ActionEvent event) {
-        // ...
-    }
-
-    /**
      * Handles the logout action event
      * @param event the event triggered by the user
      */
@@ -336,7 +327,22 @@ public class searchController {
       });
   
     }
+/**
+     * This method is called when the user clicks on the "back" button in the album display page and takes the user back to the user system page
+     * It loads the user System FXML and sets the scene to show it
+     * @param event the action event that triggers the method
+     * @throws IOException if the user System FXML file is not found or if there is an error loading it
+     */
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/userSystem.fxml"));
+        Parent userSystemPage = loader.load();
+        UserSystemController controller = loader.getController();
+        //controller.setCurrentUser(currentUser);
 
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(userSystemPage);
+    }
 
     /**
      * Handles the quit action event
