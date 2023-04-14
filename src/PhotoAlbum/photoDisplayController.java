@@ -153,28 +153,32 @@ public void initialize(){
     String albumName = UserSystemController.getCurAlbum().getName();
     setAlbumName(albumName);
 
-    // if(curPhoto == null){
-    //     setCaptionLabel("No Caption Yet");
+    if(curPhoto == null){
+         setCaptionLabel("No Caption Yet");
         
-    // }else{
-    //     String caption = curPhoto.getCaption();
-    //     setCaptionLabel(caption);
-    // }
-    // if(curPhoto == null){
-    //     setDateLabel("No Date Recorded");
+     }else{
+         String caption = curPhoto.getCaption();
+         setCaptionLabel(caption);
+     }
+     if(curPhoto == null){
+         setDateLabel("No Date Recorded");
        
-    // }else{
-    //     String date = curPhoto.getDateTakenString();
-    //     setDateLabel(date);
-    // }
+     }else{
+         String date = curPhoto.getDateTakenString();
+         setDateLabel(date);
+     }
   
-    // if(curPhoto == null){
-    //     setTagLabel("No Tags Yet");
+     if(curPhoto == null){
+         setTagLabel("No Tags Yet");
        
-    // }else{
-    //     String tags = curPhoto.getTags().get(0).getKey() + " " + curPhoto.getTags().get(0).getValue();
-    //     setTagLabel(tags);
-    // }
+     }else{
+        if(curPhoto.getTags().size()==0){
+            setTagLabel("No Tags Yet");
+        }else{
+         String tags = curPhoto.getTags().get(0).getKey() + " " + curPhoto.getTags().get(0).getValue();
+         setTagLabel(tags);
+        }
+     }
 
 
 }
