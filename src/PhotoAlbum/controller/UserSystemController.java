@@ -137,16 +137,16 @@ public class UserSystemController {
   public void setStock(){
     if(loginController.getU().getUsername().compareTo("stock")==0){
       Album currentAlbum = new Album("stockAlbum");
-      File file1 = new File("../../data/big_Data.jpg");
+      File file1 = new File("/photos04/data/balloons.png");
             String photoName = file1.getName();
             String photoPath = file1.toURI().toString();
             LocalDateTime photoDateTime = LocalDateTime.now();
             Photo photo1 = new Photo(photoName, photoPath, photoDateTime);
-            photo1.setCaption("Big Data Cloud");
+            photo1.setCaption("balloons");
             photo1.addTag("cloud", "data");
             currentAlbum.addPhoto(photo1);
 
-            
+            /* 
             File file2 = new File("/photos04/data/little_robot.jpg");
             String photoName2 = file2.getName();
             String photoPath2 = file2.getPath();
@@ -182,7 +182,7 @@ public class UserSystemController {
             photo2.setCaption("where is data");
             photo2.addTag("mystery", "device");
             currentAlbum.addPhoto(photo5);
-          
+          */
         loginController.getU().addAlbum(currentAlbum);
     }
   }
