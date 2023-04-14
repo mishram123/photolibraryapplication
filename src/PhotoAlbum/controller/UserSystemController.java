@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -138,51 +139,57 @@ public class UserSystemController {
     if(loginController.getU().getUsername().compareTo("stock")==0){
       Album currentAlbum = new Album("stockAlbum");
       File file1 = new File("/photos04/data/balloons.png");
+      if(file1.exists()){
+        System.out.println("This works");
+      }else{
+        System.out.println("This does not work");
+      }
+      
             String photoName = file1.getName();
             String photoPath = file1.toURI().toString();
             LocalDateTime photoDateTime = LocalDateTime.now();
             Photo photo1 = new Photo(photoName, photoPath, photoDateTime);
             photo1.setCaption("balloons");
-            photo1.addTag("cloud", "data");
+            photo1.addTag("helium", "colors");
             currentAlbum.addPhoto(photo1);
 
-            /* 
-            File file2 = new File("/photos04/data/little_robot.jpg");
+            
+            File file2 = new File("/photos04/data/amongus.png");
             String photoName2 = file2.getName();
             String photoPath2 = file2.getPath();
             LocalDateTime photoDateTime2 = LocalDateTime.now();
             Photo photo2 = new Photo(photoName2, photoPath2, photoDateTime2);
-            photo2.setCaption("tiny robot");
-            photo2.addTag("robot", "machine");
+            photo2.setCaption("amongus");
+            photo2.addTag("video", "game");
             currentAlbum.addPhoto(photo2);
 
-            File file3 = new File("/photos04/data/man_looking_computer.jpg");
+            File file3 = new File("/photos04/data/dog.png");
             String photoName3 = file3.getName();
             String photoPath3 = file3.getPath();
             LocalDateTime photoDateTime3 = LocalDateTime.now();
             Photo photo3 = new Photo(photoName3, photoPath3, photoDateTime3);
-            photo3.setCaption("Computer Sceintist");
-            photo2.addTag("programmer", "computer");
+            photo3.setCaption("dog");
+            photo2.addTag("animal", "woof");
             currentAlbum.addPhoto(photo3);
 
-            File file4 = new File("/photos04/data/no_picture_picture.jpg");
+            File file4 = new File("/photos04/data/flags.png");
             String photoName4 = file4.getName();
             String photoPath4 = file4.getPath();
             LocalDateTime photoDateTime4 = LocalDateTime.now();
             Photo photo4 = new Photo(photoName4, photoPath4, photoDateTime4);
-            photo2.setCaption("Where is the picture");
-            photo2.addTag("folder", "picture");
+            photo2.setCaption("flags");
+            photo2.addTag("racing", "sport");
             currentAlbum.addPhoto(photo4);
 
-            File file5 = new File("/photos04/data/where_data.jpg");
+            File file5 = new File("/photos04/data/spiderman.png");
             String photoName5 = file5.getName();
             String photoPath5 = file5.getPath();
             LocalDateTime photoDateTime5 = LocalDateTime.now();
             Photo photo5 = new Photo(photoName5, photoPath5, photoDateTime5);
-            photo2.setCaption("where is data");
-            photo2.addTag("mystery", "device");
+            photo2.setCaption("spiderman");
+            photo2.addTag("marvel", "hero");
             currentAlbum.addPhoto(photo5);
-          */
+          
         loginController.getU().addAlbum(currentAlbum);
     }
   }

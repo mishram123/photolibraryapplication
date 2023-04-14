@@ -118,7 +118,6 @@ public class albumDisplayController {
      */
     private void displayPhotoPreviews() {
         photoTilePane.getChildren().clear();
-
         for (Photo photo : currentAlbum.getPhotos()) {
             ImageView imageView = new ImageView(photo.getFilePath());
             imageView.setFitWidth(100);
