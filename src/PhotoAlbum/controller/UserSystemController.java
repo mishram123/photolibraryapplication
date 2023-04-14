@@ -248,6 +248,18 @@ public class UserSystemController {
     currentScene.setRoot(secondPage);
   }
 
+  @FXML
+  public void searchPhotos(ActionEvent event) throws IOException{
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/search.fxml"));
+    Parent secondPage = loader.load();
+
+    // Get the current scene
+    Scene currentScene = ((Node) event.getSource()).getScene();
+    
+    // Set the new root node to the current scene
+    currentScene.setRoot(secondPage);
+  }
+
   public static Album getCurAlbum () {
     return curAlbum;
   }

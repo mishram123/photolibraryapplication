@@ -80,7 +80,7 @@
             <Button layoutX="422.0" layoutY="90.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" fx:id="createAlbumButton" text="Create Album" onAction="#createAlbum"/>
             <Button layoutX="496.0" layoutY="324.0" mnemonicParsing="false" fx:id="logoutButton" text="Logout" onAction="#logout"/>
             <Button layoutX="564.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" fx:id="quitButton" text="Quit" onAction="#quit"/>
-            <Button layoutX="453.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="116.0" text="Search for Photos" />
+            <Button layoutX="453.0" layoutY="21.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="116.0" text="Search for Photos" onAction="#searchPhotos"/>
             <Button layoutX="422.0" layoutY="246.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="161.0" fx:id="openAlbumButton" text="Open Album" onAction="#openAlbum"/>
       </children>
     </AnchorPane>
