@@ -6,3 +6,5 @@ Users can add photos, tags, albums, and make all necessary changes
 
 To enter stock user, type "stock" in the login field
 Sometimes the stock images are inconsistent when loading. Sometimes they decide to load, sometimes they do not want to. If you want to ensure stock images load every time, change the path in the new File("path") in the User System Controller to the absolute path of the stock images stored in the data folder on your machine.
+
+for some reason, JavaDoc HTML documents kept failing to implement on our project, we kept getting errors that the fxml tags were not recognized by the javadoc system.
