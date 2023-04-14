@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.controller;
 
 /**
  * @author Soban Chaudhry
@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.application.Platform;
 import java.io.IOException;
 
+import PhotoAlbum.model.User;
 import javafx.application.Platform;
 
 /**
@@ -102,7 +103,7 @@ public class AdminSystemController {
             if (existingUser.getUsername().equals(enteredUser)) {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("userExists.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/userExists.fxml"));
                 dialog.getDialogPane().setContent(loader.load());
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
                 Button closeButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
@@ -179,7 +180,7 @@ public class AdminSystemController {
     private void quit(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/QuitDialog.fxml"));
         dialog.getDialogPane().setContent(loader.load());
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
         dialog.showAndWait().ifPresent(response -> {
@@ -197,7 +198,7 @@ public class AdminSystemController {
     private void logout(ActionEvent event){
       Dialog<ButtonType> dialog = new Dialog<>();
       dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("LogoutDialog.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/LogoutDialog.fxml"));
       try {
           dialog.getDialogPane().setContent(loader.load());
       } catch (IOException e) {
@@ -206,7 +207,7 @@ public class AdminSystemController {
       dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
       dialog.showAndWait().ifPresent(response -> {
           if(response == ButtonType.YES){
-              FXMLLoader nextloader = new FXMLLoader(getClass().getResource("Login.fxml"));
+              FXMLLoader nextloader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/Login.fxml"));
               Parent secondPage = null;
               try {
                  secondPage = nextloader.load();

@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.model;
 /**
  * @author Soban Chaudhry
  * @author Mannan Mishra

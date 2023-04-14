@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.controller;
 
 /**
  * @author Soban Chaudhry
@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import PhotoAlbum.Photo;
 import javafx.scene.image.Image;
 
 import javafx.event.ActionEvent;
@@ -52,6 +51,9 @@ import java.util.Optional;
 
 import javax.swing.Action;
 
+import PhotoAlbum.model.Album;
+import PhotoAlbum.model.Photo;
+import PhotoAlbum.model.*;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.scene.input.MouseEvent;
 
@@ -190,7 +192,7 @@ public void initialize(){
  */
 @FXML
     private void goBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/albumDisplay.fxml"));
         Parent userSystemPage = loader.load();
         albumDisplayController controller = loader.getController();
         //controller.setCurrentUser(currentUser);
@@ -206,7 +208,7 @@ public void initialize(){
  */
 @FXML
 private void editPhoto(ActionEvent Event) throws IOException{
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("editPhoto.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/editPhoto.fxml"));
     Parent editPhotoPage = loader.load();
     editPhotoSystemController controller = loader.getController();
 
@@ -266,7 +268,7 @@ private void nextPhoto(ActionEvent event) throws IOException{
             alert.showAndWait();
     }
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/photoDisplay.fxml"));
         Parent photoPage = loader.load();
         photoDisplayController controller = loader.getController();
         controller.setPhoto(nextPhoto);
@@ -305,7 +307,7 @@ private void prevPhoto(ActionEvent event) throws IOException{
 
             alert.showAndWait();
     }
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("photoDisplay.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/photoDisplay.fxml"));
         Parent photoPage = loader.load();
         photoDisplayController controller = loader.getController();
         controller.setPhoto(prevPhoto);
@@ -328,7 +330,7 @@ private void prevPhoto(ActionEvent event) throws IOException{
 private void quit(ActionEvent event) throws IOException{
     Dialog<ButtonType> dialog = new Dialog<>();
     dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/QuitDialog.fxml"));
     dialog.getDialogPane().setContent(loader.load());
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
     dialog.showAndWait().ifPresent(response -> {
@@ -346,7 +348,7 @@ private void quit(ActionEvent event) throws IOException{
 private void logout(ActionEvent event){
   Dialog<ButtonType> dialog = new Dialog<>();
   dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-  FXMLLoader loader = new FXMLLoader(getClass().getResource("LogoutDialog.fxml"));
+  FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/LogoutDialog.fxml"));
   try {
       dialog.getDialogPane().setContent(loader.load());
   } catch (IOException e) {
@@ -355,7 +357,7 @@ private void logout(ActionEvent event){
   dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
   dialog.showAndWait().ifPresent(response -> {
       if(response == ButtonType.YES){
-          FXMLLoader nextloader = new FXMLLoader(getClass().getResource("Login.fxml"));
+          FXMLLoader nextloader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/Login.fxml"));
           Parent secondPage = null;
           try {
              secondPage = nextloader.load();

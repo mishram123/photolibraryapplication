@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.controller;
 /**
  * @author Soban Chaudhry
  * @author Mannan Mishra
@@ -26,10 +26,12 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import java.util.Optional;
+import PhotoAlbum.model.*;
 
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
+import PhotoAlbum.model.Album;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 
@@ -236,7 +238,7 @@ public class UserSystemController {
       return;
   }
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/albumDisplay.fxml"));
     Parent secondPage = loader.load();
 
     // Get the current scene
@@ -259,7 +261,7 @@ public class UserSystemController {
   private void quit(ActionEvent event) throws IOException{
       Dialog<ButtonType> dialog = new Dialog<>();
       dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/QuitDialog.fxml"));
       dialog.getDialogPane().setContent(loader.load());
       dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
       dialog.showAndWait().ifPresent(response -> {
@@ -277,7 +279,7 @@ public class UserSystemController {
   private void logout(ActionEvent event){
     Dialog<ButtonType> dialog = new Dialog<>();
     dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("LogoutDialog.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/LogoutDialog.fxml"));
     try {
         dialog.getDialogPane().setContent(loader.load());
     } catch (IOException e) {
@@ -286,7 +288,7 @@ public class UserSystemController {
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
     dialog.showAndWait().ifPresent(response -> {
         if(response == ButtonType.YES){
-            FXMLLoader nextloader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader nextloader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/Login.fxml"));
             Parent secondPage = null;
             try {
                secondPage = nextloader.load();

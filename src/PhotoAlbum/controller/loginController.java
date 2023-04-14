@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.controller;
 /**
  * @author Soban Chaudhry
  * @author Mannan Mishra
@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
+import PhotoAlbum.model.Album;
+import PhotoAlbum.model.Photo;
+import PhotoAlbum.model.User;
 import javafx.application.Platform;
 
 /**
@@ -78,7 +81,7 @@ public class loginController {
         //     currentScene.setRoot(secondPage);
         // }
         if (enteredUser.equals(admin)) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminSystem.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/adminSystem.fxml"));
             Parent secondPage = loader.load();
 
             // Get the current scene
@@ -88,7 +91,7 @@ public class loginController {
             currentScene.setRoot(secondPage);
         } else if (foundUser != null){
             u = foundUser;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/userSystem.fxml"));
             Parent secondPage = loader.load();
 
             // Get the current scene
@@ -100,7 +103,7 @@ public class loginController {
             u = stockUser;
             Album currentAlbum = new Album("stockAlbum");
             u.addAlbum(currentAlbum);
-            File file1 = new File("photos04/data/big_Data.jpg");
+            File file1 = new File("/photos04/data/big_Data.jpg");
             String photoName = file1.getName();
             String photoPath = file1.toURI().toString();
             LocalDateTime photoDateTime = LocalDateTime.now();
@@ -109,7 +112,7 @@ public class loginController {
             photo1.addTag("cloud", "data");
             currentAlbum.addPhoto(photo1);
 
-            File file2 = new File("photos04/data/little_robot.jpg");
+            File file2 = new File("/photos04/data/little_robot.jpg");
             String photoName2 = file2.getName();
             String photoPath2 = file2.toURI().toString();
             LocalDateTime photoDateTime2 = LocalDateTime.now();
@@ -118,7 +121,7 @@ public class loginController {
             photo2.addTag("robot", "machine");
             currentAlbum.addPhoto(photo2);
 
-            File file3 = new File("photos04/data/man_looking_computer.jpg");
+            File file3 = new File("/photos04/data/man_looking_computer.jpg");
             String photoName3 = file3.getName();
             String photoPath3 = file3.toURI().toString();
             LocalDateTime photoDateTime3 = LocalDateTime.now();
@@ -127,7 +130,7 @@ public class loginController {
             photo2.addTag("programmer", "computer");
             currentAlbum.addPhoto(photo3);
 
-            File file4 = new File("photos04/data/no_picture_picture.jpg");
+            File file4 = new File("/photos04/data/no_picture_picture.jpg");
             String photoName4 = file4.getName();
             String photoPath4 = file4.toURI().toString();
             LocalDateTime photoDateTime4 = LocalDateTime.now();
@@ -136,7 +139,7 @@ public class loginController {
             photo2.addTag("folder", "picture");
             currentAlbum.addPhoto(photo4);
 
-            File file5 = new File("photos04/data/where_data.jpg");
+            File file5 = new File("/photos04/data/where_data.jpg");
             String photoName5 = file5.getName();
             String photoPath5 = file5.toURI().toString();
             LocalDateTime photoDateTime5 = LocalDateTime.now();
@@ -146,7 +149,7 @@ public class loginController {
             currentAlbum.addPhoto(photo5);
             
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("userSystem.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/userSystem.fxml"));
             Parent secondPage = loader.load();
 
             // Get the current scene
@@ -159,7 +162,7 @@ public class loginController {
         else{
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/LoginDialog.fxml"));
             dialog.getDialogPane().setContent(loader.load());
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             Button closeButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
@@ -178,7 +181,7 @@ public class loginController {
     private void quit(ActionEvent event) throws IOException{
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/QuitDialog.fxml"));
         dialog.getDialogPane().setContent(loader.load());
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
         dialog.showAndWait().ifPresent(response -> {

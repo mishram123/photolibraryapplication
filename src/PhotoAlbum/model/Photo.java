@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.model;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;

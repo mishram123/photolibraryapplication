@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import PhotoAlbum.Photo;
 import javafx.scene.image.Image;
 import java.util.Optional;
 
@@ -22,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import java.time.LocalDateTime;
+import PhotoAlbum.model.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +45,10 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.Action;
+
+import PhotoAlbum.model.Album;
+import PhotoAlbum.model.Photo;
+import PhotoAlbum.model.Tag;
 
 import java.util.stream.Collectors;
 
@@ -304,7 +308,7 @@ public class editPhotoSystemController {
  */
 @FXML
 public void goBack(ActionEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("albumDisplay.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/albumDisplay.fxml"));
         Parent userSystemPage = loader.load();
         albumDisplayController controller = loader.getController();
         //controller.setCurrentUser(currentUser);
@@ -323,7 +327,7 @@ public void goBack(ActionEvent event) throws IOException {
      private void quit(ActionEvent event) throws IOException{
          Dialog<ButtonType> dialog = new Dialog<>();
          dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuitDialog.fxml"));
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/QuitDialog.fxml"));
          dialog.getDialogPane().setContent(loader.load());
          dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
          dialog.showAndWait().ifPresent(response -> {
@@ -342,7 +346,7 @@ public void goBack(ActionEvent event) throws IOException {
 private void logout(ActionEvent event){
   Dialog<ButtonType> dialog = new Dialog<>();
   dialog.initOwner(((Node) event.getSource()).getScene().getWindow());
-  FXMLLoader loader = new FXMLLoader(getClass().getResource("LogoutDialog.fxml"));
+  FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/LogoutDialog.fxml"));
   try {
       dialog.getDialogPane().setContent(loader.load());
   } catch (IOException e) {
@@ -351,7 +355,7 @@ private void logout(ActionEvent event){
   dialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.CANCEL);
   dialog.showAndWait().ifPresent(response -> {
       if(response == ButtonType.YES){
-          FXMLLoader nextloader = new FXMLLoader(getClass().getResource("Login.fxml"));
+          FXMLLoader nextloader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/Login.fxml"));
           Parent secondPage = null;
           try {
              secondPage = nextloader.load();

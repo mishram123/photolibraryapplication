@@ -1,4 +1,4 @@
-package PhotoAlbum;
+package PhotoAlbum.model;
 
 public class Tag {
     private String key;
