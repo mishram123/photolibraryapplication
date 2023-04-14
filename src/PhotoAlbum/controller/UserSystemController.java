@@ -27,6 +27,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import java.util.Optional;
 import PhotoAlbum.model.*;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
@@ -75,6 +78,7 @@ public class UserSystemController {
   ObservableList<String> photoNums = FXCollections.observableArrayList();
   ObservableList<String> dates = FXCollections.observableArrayList();
   List<MyData> data = new ArrayList<>();
+  public static int starti = 0;
 
   /**
    * Sets the username label to the given username
@@ -111,6 +115,11 @@ public class UserSystemController {
   public void initialize() {
     String username = loginController.getU().getUsername();
     setUsername(username);
+    if(starti==0){
+      setStock();
+      starti++;
+    }
+    
 
       albumNameColumn.setCellValueFactory(new PropertyValueFactory<>("albumName"));
       numPhotosColumn.setCellValueFactory(new PropertyValueFactory<>("numPhotos"));
@@ -118,6 +127,64 @@ public class UserSystemController {
       doTableView(); 
 
     
+  }
+  /**
+   * This method sets the stock album if the user's username matches "stock"
+   * The method creates and adds five photos to the album with predefined captions and tags
+   * The photos are stored in specific file paths
+   * the album is added to the user's list of albums
+   */
+  public void setStock(){
+    if(loginController.getU().getUsername().compareTo("stock")==0){
+      Album currentAlbum = new Album("stockAlbum");
+      File file1 = new File("../../data/big_Data.jpg");
+            String photoName = file1.getName();
+            String photoPath = file1.toURI().toString();
+            LocalDateTime photoDateTime = LocalDateTime.now();
+            Photo photo1 = new Photo(photoName, photoPath, photoDateTime);
+            photo1.setCaption("Big Data Cloud");
+            photo1.addTag("cloud", "data");
+            currentAlbum.addPhoto(photo1);
+
+            /* 
+            File file2 = new File("/photos04/data/little_robot.jpg");
+            String photoName2 = file2.getName();
+            String photoPath2 = file2.getPath();
+            LocalDateTime photoDateTime2 = LocalDateTime.now();
+            Photo photo2 = new Photo(photoName2, photoPath2, photoDateTime2);
+            photo2.setCaption("tiny robot");
+            photo2.addTag("robot", "machine");
+            currentAlbum.addPhoto(photo2);
+
+            File file3 = new File("/photos04/data/man_looking_computer.jpg");
+            String photoName3 = file3.getName();
+            String photoPath3 = file3.getPath();
+            LocalDateTime photoDateTime3 = LocalDateTime.now();
+            Photo photo3 = new Photo(photoName3, photoPath3, photoDateTime3);
+            photo3.setCaption("Computer Sceintist");
+            photo2.addTag("programmer", "computer");
+            currentAlbum.addPhoto(photo3);
+
+            File file4 = new File("/photos04/data/no_picture_picture.jpg");
+            String photoName4 = file4.getName();
+            String photoPath4 = file4.getPath();
+            LocalDateTime photoDateTime4 = LocalDateTime.now();
+            Photo photo4 = new Photo(photoName4, photoPath4, photoDateTime4);
+            photo2.setCaption("Where is the picture");
+            photo2.addTag("folder", "picture");
+            currentAlbum.addPhoto(photo4);
+
+            File file5 = new File("/photos04/data/where_data.jpg");
+            String photoName5 = file5.getName();
+            String photoPath5 = file5.getPath();
+            LocalDateTime photoDateTime5 = LocalDateTime.now();
+            Photo photo5 = new Photo(photoName5, photoPath5, photoDateTime5);
+            photo2.setCaption("where is data");
+            photo2.addTag("mystery", "device");
+            currentAlbum.addPhoto(photo5);
+          */
+        loginController.getU().addAlbum(currentAlbum);
+    }
   }
   /**
    * This method creates a new album when the "Create Album" button is clicked. 
@@ -248,6 +315,11 @@ public class UserSystemController {
     currentScene.setRoot(secondPage);
   }
 
+  /**
+   * Loads the search.fxml file and sets it as the new root node of the current scene when the "Search Photos" button is clicked
+   * @param event the ActionEvent triggered by clicking the "Search Photos" button
+   * @throws IOException if an I/O error occurs when opening the search.fxml file
+   */
   @FXML
   public void searchPhotos(ActionEvent event) throws IOException{
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoAlbum/view/search.fxml"));

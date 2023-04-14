@@ -1,5 +1,9 @@
 package PhotoAlbum.controller;
 
+/**
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
+ */
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +15,10 @@ import PhotoAlbum.model.Photo;
 import PhotoAlbum.model.Tag;
 import java.util.ArrayList;
 
-
+/**
+ * The searchController class handles search functionality for photos in the app
+ * The class includes methods for searching photos by tags or date reange
+ */
 
 public class searchController {
     @FXML
@@ -37,6 +44,9 @@ public class searchController {
     @FXML
     private TextField endDate;
 
+    /**
+     * initializes the search mode toggle group and sets the singleTagRadioButton as the default
+     */
     @FXML
     public void initialize() {
         ToggleGroup searchModeToggleGroup = new ToggleGroup();
@@ -46,6 +56,11 @@ public class searchController {
         singleTagRadioButton.setSelected(true);
     }
 
+    /**
+     * Handles searchign for photos based on tags
+     * Calls one of the search helper methods based on the selected search mode
+     * @param event the ActionEvent that triggered the method call
+     */
     @FXML
     public void handleSearchByTags(ActionEvent event) {
         List<Photo> searchResults;
@@ -72,6 +87,12 @@ public class searchController {
         // ...
     }
 
+    /**
+     * Handles the search by date action event by parsing the start and end dates from the text fields
+     * search for photos in the date range using the searchByDateRange method
+     * Display search results
+     * @param event the action event triggered by the user
+     */
     @FXML
     public void handleSearchByDate(ActionEvent event) {
         LocalDate start = LocalDate.parse(startDate.getText());
@@ -103,6 +124,12 @@ public class searchController {
         return searchResults;
     }
 
+    /**
+     * Search for photos that have a single tag with the given key and value
+     * @param key the key of the tag to search for
+     * @param value the value of the tag to search for
+     * @return a list of photos that have the specified tag
+     */
     private List<Photo> searchByConjunctiveTags(String key1, String value1, String key2, String value2) {
         // ...
         List<Photo> searchResults = new ArrayList<>();
@@ -131,6 +158,14 @@ public class searchController {
     return searchResults;
     }
 
+    /**
+     * searches for photos that have both tags with the given keys and values
+     * @param key1 the key of the first tag
+     * @param value1 the value of the first tag
+     * @param key2 the key of the second tag
+     * @param value2 the value of the second tag
+     * @return a list of photos that have both tags
+     */
     private List<Photo> searchByDisjunctiveTags(String key1, String value1, String key2, String value2) {
         // ...
         List<Photo> searchResults = new ArrayList<>();
@@ -160,6 +195,12 @@ public class searchController {
 
     }
 
+    /**
+     * Searches for photos that were taken within the specified date range
+     * @param start tbe start date of the range to search for
+     * @param end the end date of the range to search for
+     * @return a list of photos that were taken within the specified date range
+     */
     private List<Photo> searchByDateRange(LocalDate start, LocalDate end) {
         // ...
         List<Photo> searchResults = new ArrayList<>();
@@ -177,16 +218,29 @@ public class searchController {
         return searchResults;
     }
 
+    /**
+     * Handles the back action event
+     * @param event the action event that triggers this method
+     */
     @FXML
     public void handleBack(ActionEvent event) {
         // ...
     }
 
+    /**
+     * Handles the logout action event
+     * @param event the event triggered by the user
+     */
     @FXML
     public void handleLogout(ActionEvent event) {
         // ...
     }
 
+
+    /**
+     * Handles the quit action event
+     * @param event the action event triggered by the user
+     */
     @FXML
     public void handleQuit(ActionEvent event) {
         // ...

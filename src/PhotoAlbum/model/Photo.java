@@ -48,7 +48,7 @@ public class Photo {
     }
     /**
      * Gets the file path of the photo
-     * @return the file path of th
+     * @return the file path of this photo
      */
     public String getFilePath() {
         return filePath;

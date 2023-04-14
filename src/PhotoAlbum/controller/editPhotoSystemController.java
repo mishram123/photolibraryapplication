@@ -58,7 +58,12 @@ import javafx.scene.input.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * @author Soban Chaudhry
+ * @author Mannan Mishra
+ * This controller is responsible for controlling the view of the editPhoto system
+ * 
+ */
 
 public class editPhotoSystemController {
   @FXML
@@ -113,6 +118,11 @@ public class editPhotoSystemController {
         albumNameLabel.setText(albumName);
     
     }
+    /**
+     * This method initializes the controller and sets up the UI components and event listeners
+     * It retreives the current album name, sets the album name in the UI, displays the enlarged photo, sets the photo caption in the UI, sets up the tag table view with the appropriate columns and data
+     * sets up event listeners for various buttons
+     */
     @FXML
     public void initialize() {
         String albumName = UserSystemController.getCurAlbum().getName();
@@ -137,6 +147,12 @@ public class editPhotoSystemController {
         // deleteTagButton.setOnAction(event -> deleteTag());
     }
 
+    /**
+     * The method populates the tag table view with the tags associated with the current photo
+     * It first clears any existing data in the table view and then retrieves the tages associated with the photo
+     * It created new rows of data for each tag and adds them to the table view
+     * Finally, it sets the table view items to the updated data list
+     */
     public void doTableView() {
 
         // tagTableView.getItems().clear();
@@ -158,6 +174,10 @@ public class editPhotoSystemController {
         tagTableView.setItems(observableData);
     }
 
+    /**
+     * This method displays the enlarged photo in the UI by retreivving the photo object from the photo display controller
+     * loading the image file, setting the image in the image view component
+     */
     private void displayEnlargedPhoto() {
         photo = photoDisplayController.getPhoto();
         Image image = new Image(photo.getFilePath());
@@ -165,10 +185,20 @@ public class editPhotoSystemController {
         photo = photoDisplayController.getPhoto();
     }
 
+    /**
+     * This mthod sets the photo caption in the UI by retrieving the cpation from the current photo object
+     * setting the caption text in the caption label
+     */
     public void setCaption() {
         captionLabel.setText(photo.getCaption());
     }
 
+    /**
+     * Handles user's request to edit caption of a photo
+     * Opens a dialog box prompting the user to enter a new caption
+     * updates the photo's caption with the new value
+     * if the user cancels, the photo caption remainds unchanged
+     */
     @FXML
     private void editCaption() {
         // Implement your logic for editing the caption of the photo
@@ -187,7 +217,10 @@ public class editPhotoSystemController {
             setCaption();
         }
     }
-
+    /**
+     * Adds a new tag to the photo and updates the tag table view
+     * Clears the tag table view and the text fields after adding a tag
+     */
     public void addTag() {
         tagTableView.getItems().clear();
         // Implement your logic for adding a tag to the photo
@@ -201,6 +234,14 @@ public class editPhotoSystemController {
         tagValueTextField.clear();
     }
 
+    /**
+     * Allows the user to move a selected photo to a different album
+     * Displays a dialog box to allow user to choose destination
+     * If the selected album is not found, show error message
+     * If the user selects the same album as current album, show error message
+     * If the user selects a valid destination album, removes the photo from the current album and adds it to the destination album
+     * updates the user interface by going back to the previous screen
+     */
     @FXML
     private void movePhoto() {
     // 1. Show a dialog to let the user select the destination album
@@ -254,6 +295,13 @@ public class editPhotoSystemController {
     }
     }
 
+    /**
+     * copies the selected photo to a user-selected album
+     * Displays a dialog box to allow user to choose destination album
+     * If the selected album is not found, show error message
+     * If the user selects the same album as current album, show error message
+     * If the user selects a valid desitnation album, adds the photo to the album and updates the user interface
+     */
     @FXML
     private void copyPhoto() {
         // Implement your logic for copying the photo
@@ -372,6 +420,10 @@ private void logout(ActionEvent event){
   });
 
 }
+/**
+ * When the deleteTag button is clicked, the tag is removed from table view and Photo
+ * @param event the event that initiates the method
+ */
     @FXML
     private void deleteTag(ActionEvent event) {
         // Implement your logic for deleting a tag from the photo
