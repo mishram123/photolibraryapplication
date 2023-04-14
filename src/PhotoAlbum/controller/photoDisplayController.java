@@ -119,6 +119,10 @@ public void setAlbum(Album album) {
     this.currentAlbum = album;
 }
 
+
+/** 
+ * @return Photo
+ */
 public static Photo getPhoto() {
     return curPhoto;
 }

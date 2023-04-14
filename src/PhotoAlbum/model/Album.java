@@ -95,6 +95,10 @@ public class Album {
         photos.remove(photo);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getDateRange(){
 
         LocalDateTime maxDate = LocalDateTime.MIN;

@@ -146,7 +146,7 @@ public class UserSystemController {
             photo1.addTag("cloud", "data");
             currentAlbum.addPhoto(photo1);
 
-            /* 
+            
             File file2 = new File("/photos04/data/little_robot.jpg");
             String photoName2 = file2.getName();
             String photoPath2 = file2.getPath();
@@ -182,7 +182,7 @@ public class UserSystemController {
             photo2.setCaption("where is data");
             photo2.addTag("mystery", "device");
             currentAlbum.addPhoto(photo5);
-          */
+          
         loginController.getU().addAlbum(currentAlbum);
     }
   }
@@ -332,6 +332,10 @@ public class UserSystemController {
     currentScene.setRoot(secondPage);
   }
 
+  
+  /** 
+   * @return Album
+   */
   public static Album getCurAlbum () {
     return curAlbum;
   }

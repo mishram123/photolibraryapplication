@@ -9,6 +9,10 @@ public class Tag {
         this.value = value;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getKey() {
         return key;
     }

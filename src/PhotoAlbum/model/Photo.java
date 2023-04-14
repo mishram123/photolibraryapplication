@@ -69,6 +69,10 @@ public class Photo {
         return dateTaken;
     }
 
+    
+    /** 
+     * @return List<Tag>
+     */
     public List<Tag> getTags() {
         return tags;
     }
