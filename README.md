@@ -1,4 +1,3 @@
-This is the Photos project for group 04 Soban Chaudhry and Mannan Mishra
 To run the project, launch your project with launch.json and path to JavaFXsdk if you are on VSCode
 To enter admin system, type "admin" in the login field.
 In the admin system you can create and delete Users. Any users you add can log in just by typing their username in the login screen
